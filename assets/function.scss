@@ -1,0 +1,16 @@
+
+@use "sass:math";
+$visualizationDesignWidth: 2560px;
+$visualizationDesignHeight: 1600px;
+@function px2vw($size: 14px, $width: $visualizationDesignWidth) {
+    @if (type-of($size) == "number" and unit($size) == "px") {
+        @return math.div($size * 100vw, $width);
+    } @else {
+        @return $size;
+    }
+}
+@function px2vh($size: 14px, $height: $visualizationDesignHeight) {
+    @return math.div($size , $height) * 100vh;
+}
+
+
