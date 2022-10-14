@@ -18,11 +18,13 @@
     "express": "latest",
     "formidable": "^2.0.1",
     "fs": "^0.0.1-security",
+    "moment": "^2.29.4",
     "multer": "^1.4.5-lts.1",
     "node-xlsx": "^0.21.0",
     "nuxt": "latest",
     "sass": "^1.55.0",
-    "sass-loader": "10.0.0"
+    "sass-loader": "10.0.0",
+    "xlsx": "^0.18.5"
   },
   "devDependencies": {
     "@nuxtjs/eslint-config": "^5.0.0",

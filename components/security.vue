@@ -2,13 +2,13 @@
   <div>
     <div class="num">
       <div class="num-item">
-        3
+        {{date[0]}}
       </div>
       <div class="num-item">
-        3
+        {{date[1]}}
       </div>
       <div class="num-item">
-        3
+        {{date[2]}}
       </div>
     </div>
     <div class="content">
@@ -20,8 +20,16 @@
 <script>
 
 export default {
-  async asyncData(context) {
-    // const data = await $http.$get('/api/users')
+  props: {
+    data: ''
+  },
+  data() {
+    // console.log(this.data);
+    let date = this.data
+    let now = new Date()
+    let day = Math.floor((now.getTime() - this.formartDateTime(date[1][1])) / 3600 / 24 / 1000)
+    date = this.converToArray(day)
+    return { date }
 
   },
   head() {
@@ -29,6 +37,20 @@ export default {
 
     }
   },
+  methods: {
+    formartDateTime(dateStr) {
+      dateStr = dateStr.replace(/-/g, '.')
+      dateStr = dateStr + " 00:00:00"
+      var timestamp = new Date(dateStr).getTime();
+      return timestamp
+    },
+    converToArray: number => [...`${number}`].map(el => parseInt(el))
+
+  },
+  mounted() {
+    
+   
+  }
 
 }
 </script>
@@ -63,8 +85,9 @@ export default {
   background-color: rgba(255, 255, 255, 0.29);
   text-align: center;
   margin: 0 auto;
-  color: rgba(255, 255, 255, 0.644);
+  color: rgba(255, 255, 255, 0.733);
   font-size: px2vw(24px);
   font-weight: 500;
+  line-height: px2vh(40px);
 }
 </style>

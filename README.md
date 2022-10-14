@@ -10,4 +10,4 @@
 yarn install # or npm install
 ```
 
-基于 [https://github.com/nuxt-community/express-template]
+based on [https://github.com/nuxt-community/express-template]
