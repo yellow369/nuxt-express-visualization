@@ -2,7 +2,9 @@
   <div class="report">
     <client-only>
       <dv-border-box-11 :title="name" class="content" :backgroundColor="'#102238'" :color="['#00E0FF']">
-        <p class="txt">{{data}}</p>
+        <div class="txt">
+          {{data}}
+        </div>
       </dv-border-box-11>
     </client-only>
 
@@ -19,10 +21,12 @@ export default {
   data(context) {
     // const data = await $http.$get('/api/users')
     let name = this.title.substring(0, this.title.indexOf('.'))
-    console.log(this.data);
+    let content = this.data.replace(/<br\/>/g, " ");
+    console.log(content);
+
     return {
       name,
-
+      content
     }
   },
   head() {
@@ -59,6 +63,8 @@ export default {
     width: px2vw(450px);
     margin: 0 auto;
     margin-top: px2vh(100px);
+    //定义元素如何处理空白，pre-wrap：保留空白符序列，正常地进行换行；
+    white-space: pre-wrap
   }
 }
 </style>

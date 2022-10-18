@@ -1,10 +1,17 @@
 <template>
   <div>
+    <div class="nav">
+      <img src="../assets/nav.svg" alt="">
+      <nuxt-link to="/">首页</nuxt-link>
+      <nuxt-link to="/upload">上传</nuxt-link>
+      <nuxt-link to="/board">数据看板1</nuxt-link>
+      <nuxt-link to="/board/data">数据看板2</nuxt-link>
+    </div>
     <Nuxt />
   </div>
 </template>
 
-<style>
+<style lang="scss">
 html {
   font-family:
     'Source Sans Pro',
@@ -60,4 +67,32 @@ html {
   background-color: #35495e;
 }
 
+.nav {
+  width: 280px;
+  height: 60px;
+  position: fixed;
+  left: 0;
+  top: 20px;
+  line-height: 60px;
+
+  img {
+    width: 12%;
+    margin-bottom: 5px;
+    vertical-align: middle;
+  }
+
+  a {
+    text-decoration: none;
+    color: #ccc;
+    opacity: 0;
+  transition: all 0.5s;
+  }
+
+  &:hover {
+    a {
+      opacity: 1;
+      transition: all 0.5s;
+    }
+  }
+}
 </style>

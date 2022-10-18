@@ -8,11 +8,11 @@
       <i class="el-icon-upload"></i>
       <div class="el-upload__text">安全事故文件</div>
     </el-upload>
-    <el-upload class="upload-demo" drag action="http://localhost:3000/api/upload" :accept="'.xlsx, .xls'">
+    <el-upload class="upload-demo" drag action="http://localhost:3000/api/upload/stock" :accept="'.xlsx, .xls'">
       <i class="el-icon-upload"></i>
       <div class="el-upload__text">原材料库位文件</div>
     </el-upload>
-    <el-upload class="upload-demo" drag action="http://localhost:3000/api/upload" :accept="'.xlsx, .xls'">
+    <el-upload class="upload-demo" drag action="http://localhost:3000/api/upload/order" :accept="'.xlsx, .xls'">
       <i class="el-icon-upload"></i>
       <div class="el-upload__text">原材料预约文件</div>
     </el-upload>

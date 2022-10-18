@@ -16,10 +16,10 @@
 
 <script>
 import Banner from '@/components/banner.vue'
-import Security from '@/components/security.vue'
-import Check from '@/components/check.vue'
-import Report from '@/components/report.vue'
-import Video from '@/components/video.vue'
+import Security from '@/components/board/security.vue'
+import Check from '@/components/board/check.vue'
+import Report from '@/components/board/report.vue'
+import Video from '@/components/board/video.vue'
 import Time from '@/components/time.vue'
 
 export default {

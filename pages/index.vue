@@ -8,23 +8,25 @@
         </a>
       </div>
       <div class="links">
-          <a
-            href="/board"
-            class="button--green"
-          >
-            数据看板
-          </a>
-        </div>
+        <a href="/board" class="button--green">
+          数据看板1
+        </a>
+      </div>
+      <div class="links">
+        <a href="/board/data" class="button--green">
+          数据看板2
+        </a>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  async asyncData({ $http, context }) {
-    const test = await $http.$get('/api/test')
+   asyncData({ $http, context }) {
+    
     return {
-      test
+      
     }
   }
 }

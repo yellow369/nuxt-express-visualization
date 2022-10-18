@@ -16,18 +16,16 @@ function haltOnTimedout(req, res, next){
 }
 
 // Require API routes
-const users = require('./routes/users')
-const test = require('./routes/test')
 const upload = require('./routes/upload')
 const xlsx = require('./routes/xlsx')
 const txt = require('./routes/txt')
+const request = require('./routes/request')
 
 // Import API Routes
-app.use(users)
-app.use(test)
 app.use(upload)
 app.use(xlsx)
 app.use(txt)
+app.use(request)
 
 // Export express app
 module.exports = app

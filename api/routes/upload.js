@@ -121,4 +121,44 @@ router.post('/upload/check', multer({
   }
 })
 
+// 原材料预约
+router.post('/upload/order', multer({
+  dest: 'upload'
+}).single('file'), (req, res) => {
+  if (/(?:(\.xlsx))/.test(req.file.originalname)) {
+    fs.renameSync(req.file.path, `upload/${req.file.originalname}`)
+    change(`upload/${req.file.originalname}`, 'binary', './upload/order.xlsx')
+    res.send('ok')
+  } else {
+    fs.unlink(req.file.path, function (error) {
+      if (error) {
+        console.log(error);
+        return false;
+      }
+      console.log('删除文件成功')
+    })
+    throw new Error('文件类型错误')
+  }
+})
+
+// 原材料库位
+router.post('/upload/stock', multer({
+  dest: 'upload'
+}).single('file'), (req, res) => {
+  if (/(?:(\.xlsx))/.test(req.file.originalname)) {
+    fs.renameSync(req.file.path, `upload/${req.file.originalname}`)
+    change(`upload/${req.file.originalname}`, 'binary', './upload/stock.xlsx')
+    res.send('ok')
+  } else {
+    fs.unlink(req.file.path, function (error) {
+      if (error) {
+        console.log(error);
+        return false;
+      }
+      console.log('删除文件成功')
+    })
+    throw new Error('文件类型错误')
+  }
+})
+
 module.exports = router

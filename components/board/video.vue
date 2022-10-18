@@ -5,7 +5,7 @@
     </client-only>
     <client-only>
       <dv-border-box-12 class="content">
-        <img src="../assets/video.jpg" alt="">
+        <img src="@/assets/video.jpg" alt="">
       </dv-border-box-12>
     </client-only>
 
