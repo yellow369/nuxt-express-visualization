@@ -1,13 +1,20 @@
 <template>
   <div>
-    <div class="nav">
-      <img src="../assets/nav.svg" alt="">
-      <nuxt-link to="/">首页</nuxt-link>
-      <nuxt-link to="/upload">上传</nuxt-link>
-      <nuxt-link to="/board">数据看板1</nuxt-link>
-      <nuxt-link to="/board/data">数据看板2</nuxt-link>
-    </div>
-    <Nuxt />
+    <client-only>
+
+      <dv-full-screen-container>
+        <div class="nav">
+          <img src="../assets/nav.svg" alt="">
+          <nuxt-link to="/">首页</nuxt-link>
+          <nuxt-link to="/upload">上传</nuxt-link>
+          <nuxt-link to="/board">数据看板1</nuxt-link>
+          <nuxt-link to="/board/data">数据看板2</nuxt-link>
+        </div>
+        <Nuxt />
+      </dv-full-screen-container>
+
+    </client-only>
+
   </div>
 </template>
 
@@ -85,7 +92,7 @@ html {
     text-decoration: none;
     color: #ccc;
     opacity: 0;
-  transition: all 0.5s;
+    transition: all 0.5s;
   }
 
   &:hover {

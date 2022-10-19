@@ -49,7 +49,7 @@ router.post('/xlsx/order', (req, res) => {
 
 // 原材料库存
 router.post('/xlsx/stock', (req, res) => {
-  console.log('原材料');
+  console.log('库存');
   fs.readFile('./upload/stock.xlsx', 'binary', (err, dataStr) => {
     if(err) {
       console.log('读取失败' + err.message);

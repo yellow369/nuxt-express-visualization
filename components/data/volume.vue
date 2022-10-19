@@ -57,13 +57,20 @@ export default {
         legend: {
           // Try 'horizontal'
           orient: 'horizontal',
-          bottom: 20,
+          bottom: 0,
           left: 'center',
           textStyle: {
             color: '#ccc'
             // ...
           }
         },
+        grid: {
+            left: '3%',
+            right: '2%',
+            bottom: '8%',
+            top: '8%',
+            containLabel: true
+          },
         xAxis: {
           type: 'category',
           data: outTime
@@ -115,6 +122,6 @@ export default {
 
 .content {
   width: px2vw(1500px);
-  height: px2vh(500px);
+  height: px2vh(430px);
 }
 </style>

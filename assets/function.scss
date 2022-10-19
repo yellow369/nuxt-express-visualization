@@ -1,5 +1,7 @@
 
 @use "sass:math";
+// $visualizationDesignWidth: 4096px;
+// $visualizationDesignHeight: 2160px;
 $visualizationDesignWidth: 2560px;
 $visualizationDesignHeight: 1600px;
 @function px2vw($size: 14px, $width: $visualizationDesignWidth) {

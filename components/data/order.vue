@@ -12,9 +12,7 @@
       <div class="text">/预约总拍位</div>
     </div>
     <div class="content">
-      <client-only>
         <dv-scroll-board :config="config" class="form" />
-      </client-only>
     </div>
 
   </div>
@@ -36,18 +34,22 @@ export default {
       form.shift()
     }
     this.change(form)
-    console.log(form[0][7]);
+
     let num1 = 0
     let num2 = 0
     form.map((item) => {
       num1 += item[7]
       num2 += item[8]
     })
+    let sty = []
+    this.header.map((item) => sty.push('center'))
+
     let config = {
       header: this.header,
       data: form,
-      align: ['center', 'center', 'center', 'center', 'center', 'center', 'center', 'center', 'center', 'center'],
-      hoverPause: false
+      align: sty,
+      hoverPause: false,
+      headerBGC: '#153276'
     }
 
     return {
@@ -123,7 +125,7 @@ export default {
 .content {
   .form {
     width: px2vw(1000px);
-    height: px2vh(400px);
+    height: px2vh(350px);
   }
 }
 </style>

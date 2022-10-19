@@ -7,7 +7,8 @@
       <Order :data="order" :header="header"></Order>
       <Volume :data="volume"></Volume>
     </div>
-    <Stock></Stock>
+    <Stock :data="stock" :total="total"></Stock>
+    <In></In>
   </div>
 </template>
 
@@ -17,17 +18,22 @@ import Banner from '@/components/banner.vue'
 import Volume from '@/components/data/volume.vue'
 import Order from '@/components/data/order.vue'
 import Stock from '@/components/data/stock.vue'
+import In from '@/components/data/in.vue'
 
 
 export default {
   async asyncData(context) {
     let volume = await context.$axios.post('request/volume')
     let order = await context.$axios.post('xlsx/order')
+    let stock = await context.$axios.post('request/stock')
+    let total = await context.$axios.post('xlsx/stock')
 
     return {
       volume: volume.data.data,
       order: order.data[0].data,
-      header: order.data[0].data[0]
+      header: order.data[0].data[0],
+      stock: stock.data.p_msg,
+      total: total.data[0].data
     }
   },
   head() {
@@ -40,7 +46,8 @@ export default {
     Banner,
     Volume,
     Order,
-    Stock
+    Stock,
+    In
 }
 }
 </script>
