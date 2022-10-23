@@ -1,20 +1,35 @@
 <template>
   <div class="order">
-    <div class="title">
-      <div class="text">原材料预约信息</div>
+    <div class="banner">
+      <div class="title">
+        <div class="text">原材料预约信息</div>
+      </div>
+      <div class="count">
+        <div class="line-top"></div>
+        <div style="display: flex;align-items: center;justify-content: center">
+          <div style="width: 45%">
+            <dv-digital-flop :config="config1" class="flop" /><br />
+            预约总数量
+          </div>
+          <div style="height: 30%; width: 1px; color: rgba(256, 256, 256, 0.2);font-size: 30px;">|</div>
+          <div style="width: 45%; height: 80%">
+            <dv-digital-flop :config="config2" class="flop" /> <br />
+            预约总拍数
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="count">
+    <!-- <div class="count">
       <dv-digital-flop :config="config1" class="flop" />
       <div class="text">/预约总数量</div>
     </div>
     <div class="count">
       <dv-digital-flop :config="config2" class="flop" />
       <div class="text">/预约总拍位</div>
-    </div>
+    </div> -->
     <div class="content">
-        <dv-scroll-board :config="config" class="form" />
+      <dv-scroll-board :config="config" class="form" />
     </div>
-
   </div>
 </template>
 
@@ -23,39 +38,15 @@
 
 export default {
   props: {
-    data: '',
-    header: ''
+
   },
   data() {
-    // console.log(this.data.map((items) => items.ORDERDATE));
-    let form = this.data
-    // console.log(form[0].indexOf('当前日期'));
-    if (form[0].indexOf('当前日期') !== -1) {
-      form.shift()
-    }
-    this.change(form)
 
-    let num1 = 0
-    let num2 = 0
-    form.map((item) => {
-      num1 += item[7]
-      num2 += item[8]
-    })
-    let sty = []
-    this.header.map((item) => sty.push('center'))
-
-    let config = {
-      header: this.header,
-      data: form,
-      align: sty,
-      hoverPause: false,
-      headerBGC: '#153276'
-    }
 
     return {
-      config,
-      config1: { number: [num1] },
-      config2: { number: [num2] },
+      config: null,
+      config1: null,
+      config2: null,
     }
   },
   head() {
@@ -64,16 +55,48 @@ export default {
     }
   },
   mounted() {
+    this.$axios.post('xlsx/order').then((res) => {
+      console.log(res.data[0]);
+      let data = res.data[0].data
+      // console.log(this.data.map((items) => items.ORDERDATE));
+      let form = data
+      let header = []
+      if (form[0].indexOf('当前日期') !== -1) {
+        header = res.data[0].data[0]
+        form.shift()
+      }
+      this.change(form)
 
+      let num1 = 0
+      let num2 = 0
+      form.map((item) => {
+        num1 += item[7]
+        num2 += item[8]
+      })
+      let sty = []
+      data[0].map((item) => sty.push('center'))
+
+      this.config = {
+        header,
+        data: form,
+        align: sty,
+        hoverPause: false,
+        headerBGC: '#1A3FE02E',
+      }
+      this.config1 = { number: [num1] }
+      this.config2 = { number: [num2] }
+    }).catch((err) => {
+      console.log('请求失败' + err.message);
+    })
   },
   methods: {
     //修改表格数据
     change(e) {
       e.map((item, index) => {
         if (item.indexOf('已完成') !== -1) {
-          e[index][e[index].indexOf('已完成')] = '<span style="color: #00C430;font-weight: 700;font-size: 22px;padding-right: 2px">●</span>已完成'
+          e[index][e[index].indexOf('已完成')] = '<div style="line-height: 60px"><span style="color: #00C430;font-weight: 700;font-size: 17px;padding-right: 2px">●</span>已完成</div>'
         } else if (item.indexOf('未完成') !== -1) {
-          e[index][e[index].indexOf('未完成')] = '<span style="color: #FF1600;font-weight: 700;font-size: 22px;padding-right: 2px">●</span>未完成'
+          e[index][e[index].indexOf('未完成')] = '<div style="line-height: 60px"><span style="color: #FF1600;font-weight: 700;font-size: 17px;padding-right: 2px">●</span>未完成</div>'
         }
       })
     }
@@ -84,20 +107,63 @@ export default {
 <style scoped lang="scss">
 @import '@/assets/function.scss';
 
-.title {
-  width: px2vw(300px);
-  color: #fff;
-  border: 2px solid #1A4273;
-  padding: 4px;
-  // margin-left: px2vw(40px);
+.banner {
+  width: px2vw(1938px);
+  height: px2vw(150px);
+  background: url(../../assets/img/order-banner.png);
+  display: flex;
+  justify-content: space-between;
 
-  .text {
-    background-color: #1A4273;
-    font-weight: 700;
-    font-size: px2vw(24px);
-    width: 100%;
-    margin: 0 auto;
+  .title {
+    width: px2vw(800px);
+    height: px2vh(150px);
+    color: #fff;
+    background: url(../../assets/img/order.png) no-repeat;
+    background-position: -10px;
+    background-size: 80%;
+    // margin-left: px2vw(40px);
+
+    .text {
+      width: 907px;
+      height: px2vh(150px);
+      font-size: px2vw(45px);
+      color: #4078FF;
+      line-height: px2vh(150px);
+      letter-spacing: 4px;
+      text-shadow: 0px 2px 8px #0037BD;
+      background: linear-gradient(360deg, #CFF0FD 0%, #FFFFFF 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-left: px2vw(86px);
+
+    }
+  }
+
+  .count {
+    height: 75%;
+    width: px2vw(500px);
+    margin-top: 1%;
+    margin-right: 1%;
+    border-radius: 50px;
+    border: 1px solid rgba(256, 256, 256, 0.23);
+    color: #fff;
     text-align: center;
+    font-weight: 600;
+    .line-top {
+      margin: 0 auto;
+      width: px2vw(200px);
+      height: 1px;
+      border: 2px solid;
+      border-image: linear-gradient(270deg, rgba(57, 183, 213, 0), rgba(63, 204, 234, 1), rgba(63, 204, 234, 0)) 2 2;
+      margin-top: -1px;
+    }
+
+    .flop {
+      display: inline-block;
+      width: px2vw(160px);
+      height: px2vh(60px);
+      vertical-align: middle
+    }
   }
 }
 
@@ -106,12 +172,7 @@ export default {
   height: px2vh(120px);
   display: inline-block;
 
-  .flop {
-    display: inline-block;
-    width: px2vw(160px);
-    height: px2vh(150px);
-    vertical-align: middle
-  }
+
 
   .text {
     color: #fff;
@@ -122,10 +183,26 @@ export default {
 }
 
 
+.ddd {
+  background-color: #1A3FE02E;
+}
+
 .content {
-  .form {
-    width: px2vw(1000px);
-    height: px2vh(350px);
+
+
+  .form::v-deep {
+    width: px2vw(1938px);
+    height: px2vh(554px);
+
+    .header {
+      background-color: rgba(26, 63, 224, 0.25) !important;
+    }
+
+    .rows {
+      .row-item {
+        background-color: rgba(26, 63, 224, 0.1800) !important;
+      }
+    }
   }
 }
 </style>

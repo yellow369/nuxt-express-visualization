@@ -109,13 +109,14 @@ $length-log2E: px2vw(var(--length-log2E));
   width: px2vw(150px);
   text-align: center;
   line-height: px2vh(45px);
+  margin-right: px2vw(10px);
 }
 
 
 /* 外部大小和阴影 */
 .clock {
-  width: var(--clock-size);
-  height: var(--clock-size);
+  width: px2vh(130px);
+  height: px2vh(130px);
   border-radius: 50%;
   // box-shadow: 5px 5px 10px $clock-size, -4px -4px 8px #fff;
   position: relative;

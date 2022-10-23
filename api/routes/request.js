@@ -36,4 +36,30 @@ router.post('/request/stock', (req, res) => {
 })
 })
 
+// 入库
+router.post('/request/in', (req, res) => {
+  
+  axios.post('https://infor.i.sinotrans.com/inforom/rest',{"method":"executeSql","sqlDescript":"WH051KB_QueryInOrderData"} ).then((data) => {
+  console.log('成功 入库');
+
+  res.send(data.data)
+}).catch((err) => {
+  console.log(err);
+  res.send('infor接口请求超时')
+})
+})
+
+// 出库
+router.post('/request/out', (req, res) => {
+  
+  axios.post('https://infor.i.sinotrans.com/inforom/rest',{"method":"executeSql","sqlDescript":"WH051KB_QueryOutOrderData"} ).then((data) => {
+  console.log('成功 出库');
+
+  res.send(data.data)
+}).catch((err) => {
+  console.log(err);
+  res.send('infor接口请求超时')
+})
+})
+
 module.exports = router

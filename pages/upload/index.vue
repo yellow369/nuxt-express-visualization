@@ -42,15 +42,16 @@ export default {
       title: "Users"
     };
   },
-  components: {  },
+  components: {},
   computed: {
-    
-    
+
+
   }
 }
 </script>
 
 <style scoped lang="scss">
+@import '@/assets/function.scss';
 .container {
   margin: 0 auto;
   min-height: 100vh;
@@ -62,11 +63,17 @@ export default {
   flex-wrap: wrap;
 }
 
-.upload-demo {
+.upload-demo ::v-deep {
   margin: 0 20px;
 
+   .el-upload-dragger  {
+    width: px2vw(300px);
+    height: px2vh(300px);
+    min-height: 180px;
+  }
+
   .el-upload__text {
-    font-size: 24px;
+    font-size: px2vh(40px);
   }
 }
 </style>

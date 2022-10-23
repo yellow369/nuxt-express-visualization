@@ -58,10 +58,13 @@ export default {
     width: px2vw(500px);
     height: px2vh(300px);
     margin-top: px2vh(20px);
+    padding: px2vh(12px);
+    overflow: hidden;
 
     img {
-      width: 100%;
-
+      height: px2vh(276px);
+      width: px2vw(476px);
+      border-radius: 8px;
     }
   }
 }

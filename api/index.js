@@ -5,7 +5,7 @@ const app = express()
 
 const timeout = require('connect-timeout')
 
-app.use(timeout(10000));
+app.use(timeout(15000));
 app.use(haltOnTimedout);
 
 function haltOnTimedout(req, res, next){

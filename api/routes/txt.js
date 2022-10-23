@@ -19,6 +19,7 @@ router.post('/txt/report/content', (req, res) => {
           if (err) {
             console.log(err.message);
           }
+          console.log('txt content');
           res.send(dataStr)
         })
       }
@@ -41,6 +42,7 @@ router.post('/txt/report/title', (req, res) => {
           if (err) {
             console.log(err.message);
           }
+          console.log('txt title');
           res.send(e)
         })
       }

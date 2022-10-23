@@ -1,7 +1,10 @@
 <template>
   <div class="volume">
-    <div class="title">
-      <div class="text">原料包材出入库体积(m³)</div>
+    <div class="banner">
+      <div class="title">
+        <div class="text">原料包材出入库体积(m³)</div>
+      </div>
+
     </div>
     <div class="content" id="main">
 
@@ -15,12 +18,12 @@ import * as echarts from 'echarts'
 
 export default {
   props: {
-    data: ''
+
   },
   data() {
     // console.log(this.data.map((items) => items.ORDERDATE));
 
-    return {}
+    return { data: null, i: 0 }
   },
   head() {
     return {
@@ -28,10 +31,20 @@ export default {
     }
   },
   mounted() {
-    this.drawCharts()
-    window.onresize = () => {
+
+    this.$axios.post('request/volume').then((res) => {
+      this.data = res.data.data
+
       this.drawCharts()
-    }
+      window.onresize = () => {
+        this.drawCharts()
+      }
+    }).catch((err) => {
+      console.log('请求失败' + err.message);
+    })
+
+
+
   },
   methods: {
     drawCharts() {
@@ -41,7 +54,10 @@ export default {
         }
       })
       let volume = out.map((items) => items.VOLUME)
-      let outTime = out.map((items) => items.ORDERDATE)
+      let outTime = out.map((items) => {
+        this.i += 1 
+        return this.i
+      })
 
       let into = this.data.filter((items) => {
         if (items.TYPE == '入库') {
@@ -57,25 +73,45 @@ export default {
         legend: {
           // Try 'horizontal'
           orient: 'horizontal',
-          bottom: 0,
-          left: 'center',
+          top: 0,
+          right: 0,
           textStyle: {
-            color: '#ccc'
+            color: '#fff'
             // ...
           }
         },
         grid: {
-            left: '3%',
-            right: '2%',
-            bottom: '8%',
-            top: '8%',
-            containLabel: true
-          },
+          left: '3%',
+          right: '2%',
+          bottom: '0%',
+          top: '0%',
+          containLabel: true
+        },
         xAxis: {
           type: 'category',
-          data: outTime
+          data: outTime,
+          axisLabel: {
+            show: true,
+            textStyle: {
+              color: "#fff",
+            }
+          },
         },
-        yAxis: {},
+        yAxis: {
+          type: 'value',
+          splitLine: {
+            show: true,
+            lineStyle: {
+              color: 'rgba(256,256,256,0.3)',
+            }
+          },
+          axisLabel: {
+            show: true,
+            textStyle: {
+              color: "#fff",
+            }
+          },
+        },
         series: [
           {
             name: '入库',
@@ -103,25 +139,46 @@ export default {
 <style scoped lang="scss">
 @import '@/assets/function.scss';
 
-.title {
-  width: px2vw(300px);
-  color: #fff;
-  border: 2px solid #1A4273;
-  padding: 4px;
-  margin-left: px2vw(100px);
+.volume {
+  background: url(../../assets/img/volume.png) rgba($color: blue, $alpha: 0.05);
 
-  .text {
-    background-color: #1A4273;
-    font-weight: 700;
-    font-size: px2vw(24px);
-    width: 100%;
-    margin: 0 auto;
-    text-align: center;
+  .banner {
+    width: px2vw(1938px);
+    height: px2vw(150px);
+    display: flex;
+    justify-content: space-between;
+
+    .title {
+      width: px2vw(800px);
+      height: px2vh(150px);
+      color: #fff;
+      background: url(../../assets/img/order.png) no-repeat;
+      background-position: -10px;
+      background-size: 80%;
+      // margin-left: px2vw(40px);
+
+      .text {
+        width: 907px;
+        height: px2vh(150px);
+        font-size: px2vw(45px);
+        color: #4078FF;
+        line-height: px2vh(150px);
+        letter-spacing: 4px;
+        text-shadow: 0px 2px 8px #0037BD;
+        background: linear-gradient(360deg, #CFF0FD 0%, #FFFFFF 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        margin-left: px2vw(86px);
+
+      }
+    }
+
+
   }
-}
 
-.content {
-  width: px2vw(1500px);
-  height: px2vh(430px);
+  .content {
+    width: px2vw(1900px);
+    height: px2vh(523px);
+  }
 }
 </style>

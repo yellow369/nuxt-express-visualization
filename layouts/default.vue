@@ -1,14 +1,17 @@
 <template>
   <div>
     <client-only>
-
       <dv-full-screen-container>
         <div class="nav">
-          <img src="../assets/nav.svg" alt="">
-          <nuxt-link to="/">首页</nuxt-link>
-          <nuxt-link to="/upload">上传</nuxt-link>
-          <nuxt-link to="/board">数据看板1</nuxt-link>
-          <nuxt-link to="/board/data">数据看板2</nuxt-link>
+          <img src="../assets/fullscreen.svg" alt="" @click="fullScreen" v-if="!full">
+          <img src="../assets/reduce.svg" alt="" @click="fullScreen" v-if="full">
+          <img src="../assets/nav.svg" @click="shownav">
+          <div v-if="nav">
+            <nuxt-link to="/">首页</nuxt-link>
+            <nuxt-link to="/upload">上传</nuxt-link>
+            <nuxt-link to="/board">数据看板1</nuxt-link>
+            <nuxt-link to="/board/data">数据看板2</nuxt-link>
+          </div>
         </div>
         <Nuxt />
       </dv-full-screen-container>
@@ -17,7 +20,39 @@
 
   </div>
 </template>
+<script>
+export default {
+  data() {
+    // const data = await $http.$get('/api/users')
+    return {
+      full: false,
+      nav: false
+    }
+  },
+  head() {
+    return {
 
+    }
+  },
+  methods: {
+    fullScreen(element) {
+      let ele = document.documentElement
+      if (!this.full) {
+        ele.requestFullscreen()
+        document.getElementById('dv-full-screen-container')?.classList.add('fullscreen')
+        this.full = true
+      } else {
+        document.exitFullscreen()
+        document.getElementById('dv-full-screen-container')?.classList.remove('fullscreen')
+        this.full = false
+      }
+    },
+    shownav() {
+      this.nav = !this.nav
+    }
+  }
+}
+</script>
 <style lang="scss">
 html {
   font-family:
@@ -75,15 +110,16 @@ html {
 }
 
 .nav {
-  width: 280px;
+  width: 500px;
   height: 60px;
   position: fixed;
   left: 0;
   top: 20px;
   line-height: 60px;
+  display: flex;
 
   img {
-    width: 12%;
+    width: 8%;
     margin-bottom: 5px;
     vertical-align: middle;
   }
@@ -91,15 +127,28 @@ html {
   a {
     text-decoration: none;
     color: #ccc;
-    opacity: 0;
-    transition: all 0.5s;
+    font-size: 22px;
+    padding: 0 4px;
   }
 
-  &:hover {
-    a {
-      opacity: 1;
-      transition: all 0.5s;
-    }
+}
+
+.fullscreen {
+  .sidebar {
+    display: none;
+  }
+
+  .content-box {
+    left: 0;
+    top: 0;
+  }
+
+  .content-box main>.el-scrollbar>.el-scrollbar__wrap>.el-scrollbar__view {
+    padding: 0;
+  }
+
+  .tags {
+    display: none;
   }
 }
 </style>

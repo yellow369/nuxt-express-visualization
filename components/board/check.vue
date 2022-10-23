@@ -43,21 +43,13 @@ export default {
   props: {
     data: ''
   },
-  data(context) {
-    let record = []
-    let mouse = []
-    record.push(this.data[1])
-    record.push(this.data[2])
-    record.push(this.data[3])
-    record.push(this.data[4])
-    record.push(this.data[5])
-    record.push(this.data[6])
-    mouse.push(this.data[7])
-    mouse.push(this.data[8])
-    // console.log(record);
+  data() {
+
     return {
-      record,
-      mouse
+      record: [],
+      mouse: [],
+      par: [],
+      times: null
     }
   },
   head() {
@@ -65,7 +57,37 @@ export default {
 
     }
   },
-
+  mounted() {
+    this.get()
+    this.times = setInterval(() => {
+      this.get()
+    }, 10000)
+  },
+  methods: {
+    get() {
+      this.$axios.post('xlsx/check').then((res) => {
+        this.record = []
+        this.mouse = []
+        this.par = res.data[0].data
+        if (this.par[0].indexOf('当前日期') !== -1) {
+          this.par.shift()
+        }
+        console.log(this.par);
+        this.par.map((items) => {
+          if (items[1] == 'FM消防检查') {
+            this.record.push(items)
+          } else if (items[1] == '虫鼠害检查') {
+            this.mouse.push(items)
+          }
+        })
+      }).catch((err) => {
+        console.log('请求失败' + err.message);
+      })
+    }
+  },
+  destroyed() {
+    clearInterval(this.times)
+  }
 }
 </script>
 
@@ -87,12 +109,13 @@ export default {
   margin-left: px2vw(40px);
 
   .title {
-  width: px2vw(250px);
+    width: px2vw(250px);
 
   }
+
   .content {
     width: px2vw(250px);
-    
+
   }
 }
 
@@ -115,7 +138,7 @@ export default {
   color: #fff;
 
   .item {
-    margin-top: 10px;
+    margin-top: px2vh(15px);
     display: flex;
     justify-content: space-around;
 
@@ -129,12 +152,13 @@ export default {
       .complete {
         width: 100%;
         height: 100%;
-        font-size: 40px;
+        font-size: px2vw(55px);
         background-color: #00E0E2;
         border-radius: px2vw(40px);
         color: rgba(0, 0, 0, 0.721);
         font-weight: 700;
         text-align: center;
+        line-height: px2vw(80px);
       }
     }
 

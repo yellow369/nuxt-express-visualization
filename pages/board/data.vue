@@ -1,14 +1,15 @@
 <template>
   <div class="board">
     <Banner></Banner>
-
-    <Time></Time>
-    <div class="second">
-      <Order :data="order" :header="header"></Order>
-      <Volume :data="volume"></Volume>
+    <div class="content">
+      <!-- <Time></Time> -->
+      <div class="second">
+        <Order></Order>
+        <Volume :data="volume"></Volume>
+      </div>
+      <Stock></Stock>
+      <Infor></Infor>
     </div>
-    <Stock :data="stock" :total="total"></Stock>
-    <In></In>
   </div>
 </template>
 
@@ -18,22 +19,17 @@ import Banner from '@/components/banner.vue'
 import Volume from '@/components/data/volume.vue'
 import Order from '@/components/data/order.vue'
 import Stock from '@/components/data/stock.vue'
-import In from '@/components/data/in.vue'
+import Infor from '@/components/data/infor.vue'
 
 
 export default {
   async asyncData(context) {
     let volume = await context.$axios.post('request/volume')
-    let order = await context.$axios.post('xlsx/order')
-    let stock = await context.$axios.post('request/stock')
-    let total = await context.$axios.post('xlsx/stock')
+
 
     return {
       volume: volume.data.data,
-      order: order.data[0].data,
-      header: order.data[0].data[0],
-      stock: stock.data.p_msg,
-      total: total.data[0].data
+
     }
   },
   head() {
@@ -47,8 +43,11 @@ export default {
     Volume,
     Order,
     Stock,
-    In
-}
+    Infor
+  },
+  mounted() {
+
+  }
 }
 </script>
 
@@ -58,7 +57,11 @@ export default {
 .board {
   min-height: 100vh;
   min-width: 100vh;
-  background-color: #132235;
+  background-color: #000;
+}
+
+.content {
+  padding: px2vh(41px) px2vh(86px);
 }
 
 .time {
@@ -69,9 +72,14 @@ export default {
 
 .second {
   display: flex;
-  justify-content: flex-end;
-  .order {
-    margin-top: -30px;
-  }
+  justify-content: space-between
+}
+
+.stock {
+  margin-top: px2vh(50px);
+}
+
+.infor {
+  margin-top: px2vh(50px);
 }
 </style>

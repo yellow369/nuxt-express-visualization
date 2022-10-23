@@ -1,9 +1,9 @@
 <template>
   <div class="board">
     <Banner></Banner>
-    <Security :data="data1"></Security>
+    <Security></Security>
     <div class="content">
-      <Check :data="data2"></Check>
+      <Check ></Check>
       <Report :data="data3" :title="title"></Report>
       <Video></Video>
     </div>
@@ -24,19 +24,13 @@ import Time from '@/components/time.vue'
 
 export default {
   async asyncData(context) {
-    let security = await context.$axios.post('xlsx/security')
-
-    let check = await context.$axios.post('xlsx/check')
+    // let security = await context.$axios.post('xlsx/security')
+    // let check = await context.$axios.post('xlsx/check')
     // console.log(check.data[0].data);
 
-    let reportTitle = await context.$axios.post('txt/report/title')
-    let reportContent = await context.$axios.post('txt/report/content')
 
     return {
-      data1: security.data[0].data,
-      data2: check.data[0].data,
-      data3: reportContent.data,
-      title: reportTitle.data
+
     }
   },
   head() {
@@ -61,11 +55,11 @@ export default {
 .board {
   min-height: 100vh;
   min-width: 100vh;
-  background-color: #132235;
+  background-color: #000;
 }
 
 .content {
-  margin-top: px2vh(20px);
+  margin-top: px2vh(50px);
   display: flex;
 }
 
@@ -89,7 +83,7 @@ export default {
   width: px2vw(2000px);
   height: px2vh(600px);
   margin: 0 auto;
-  margin-top: px2vh(120px);
+  margin-top: px2vh(130px);
   img {
     width: 100%;
   }

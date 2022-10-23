@@ -24,12 +24,8 @@ export default {
     data: ''
   },
   data() {
-    // console.log(this.data);
-    let date = this.data
-    let now = new Date()
-    let day = Math.floor((now.getTime() - this.formartDateTime(date[1][1])) / 3600 / 24 / 1000)
-    date = this.converToArray(day)
-    return { date }
+
+    return { date: [] }
 
   },
   head() {
@@ -48,8 +44,17 @@ export default {
 
   },
   mounted() {
-    
-   
+    // console.log(this.data);
+
+    this.$axios.post('xlsx/security').then((res) => {
+      this.date = res.data[0].data
+      let now = new Date()
+      let day = Math.floor((now.getTime() - this.formartDateTime(this.date[1][1])) / 3600 / 24 / 1000)
+      this.date = this.converToArray(day)
+    }).catch((err) => {
+      console.log('请求失败' + err.message);
+    })
+
   }
 
 }
