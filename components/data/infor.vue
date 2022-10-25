@@ -12,9 +12,13 @@
         <div class="title">
           <div class="text">嘉兴玛氏项目入库信息</div>
         </div>
+        <div class="num">
+          <span>已关闭 &nbsp; <span style="color: yellow">{{close}}</span></span>
+          <!-- <span>全部发运 &nbsp; <span style="color: rgba(27, 248, 247, 1)">{{deliver}}</span></span> -->
+        </div>
       </div>
       <div class="content">
-        <dv-scroll-board class="form" />
+        <dv-scroll-board class="form" :config="config1" />
       </div>
     </div>
     <div class="out">
@@ -23,7 +27,7 @@
           <div class="text">嘉兴玛氏项目出库信息</div>
         </div>
         <div class="num">
-          <span>拣货中 &nbsp; <span style="color: yellow">{{padding}}</span></span>
+          <span>已分配 &nbsp; <span style="color: yellow">{{padding}}</span></span>
           <span>全部发运 &nbsp; <span style="color: rgba(27, 248, 247, 1)">{{deliver}}</span></span>
         </div>
       </div>
@@ -47,8 +51,11 @@ export default {
 
     return {
       config: null,
+      config1: null,
       padding: 0,
-      deliver: 0
+      deliver: 0,
+      times: null,
+      close: 0
     }
   },
   head() {
@@ -57,39 +64,98 @@ export default {
     }
   },
   mounted() {
-    this.$axios.post('request/out').then((res) => {
-      let out = res.data.data
-      let outData = []
-      out.map((items) => {
-        if (items.ORDERSTATUS == '全部发运') {
-          this.deliver += 1
-          let arr = [items.SOORDER, items.ORDERTYPE, items.SKUGROUP, items.ORDERSTATUS, items.PALLETQTY, items.VOLUME, '中国牧工商集团']
-          outData.push(arr)
-        } else if (items.ORDERSTATUS == '新订单' || items.ORDERSTATUS == '已分配') {
-          this.padding += 1
-          let arr = [items.SOORDER, items.ORDERTYPE, items.SKUGROUP, items.ORDERSTATUS, items.PALLETQTY, items.VOLUME, '中国牧工商集团']
-          outData.push(arr)
-        }
-      })
-      let header = ['订单号', '订单类型', '物料类型', '状态', '托数', '体积(㎡)', '目的地']
-      this.config = {
-        header,
-        data: outData,
-        align: ['center', 'center', 'center', 'center', 'center', 'center', 'center'],
-        hoverPause: false,
-        headerBGC: '#1A3FE02E',
-        oddRowBGC: '#132235',
-        evenRowBGC: '#132235',
-        carousel: 'page',
-        waitTime: '3000',
-        // columnWidth: [180, 80, 100, 120, 80, 80, 150]
-      }
+    this.get()
+    this.getin()
+    this.times = setInterval(() => {
+      this.get()
+      this.getin()
+    }, 12000)
 
-    }).catch((err) => {
-      console.log('请求失败' + err.message);
+    this.$once('hook:beforeDestroy', () => {
+      clearInterval(this.times);
+      this.times = null;
+
     })
   },
   methods: {
+    get() {
+      this.$axios.post('request/out').then((res) => {
+        let out = res.data.data
+        let outData = []
+        this.deliver = 0
+        this.padding = 0
+        out.map((items) => {
+          if (items.ORDERSTATUS == '全部发运') {
+            this.deliver += 1
+            let arr = [items.SOORDER, items.ORDERTYPE, items.SKUGROUP, items.ORDERSTATUS, items.PALLETQTY, items.VOLUME, '中国牧工商集团']
+            outData.push(arr)
+          } else if (items.ORDERSTATUS == '新订单' || items.ORDERSTATUS == '已分配') {
+            this.padding += 1
+            let arr = [items.SOORDER, items.ORDERTYPE, items.SKUGROUP, items.ORDERSTATUS, items.PALLETQTY, items.VOLUME, '中国牧工商集团']
+            outData.push(arr)
+          }
+        })
+        let header = ['订单号', '订单类型', '物料类型', '状态', '托数', '体积(㎡)', '目的地']
+        this.config = {
+          header,
+          data: outData,
+          align: ['center', 'center', 'center', 'center', 'center', 'center', 'center'],
+          hoverPause: false,
+          headerBGC: '#1A3FE02E',
+          oddRowBGC: '#132235',
+          evenRowBGC: '#132235',
+          carousel: 'page',
+          waitTime: '5000',
+          // columnWidth: [180, 80, 100, 120, 80, 80, 150]
+        }
+
+      }).catch((err) => {
+        console.log('请求失败' + err.message);
+      })
+    },
+    getin() {
+      this.$axios.post('request/in').then((res) => {
+        let resin = res.data.data
+        let inData = []
+        this.close = 0
+
+        resin.map((items) => {
+          // if (items.ORDERSTATUS == '全部发运') {
+          //   this.deliver += 1
+          //   let arr = [items.SOORDER, items.ORDERTYPE, items.SKUGROUP, items.ORDERSTATUS, items.PALLETQTY, items.VOLUME, '中国牧工商集团']
+          //   inData.push(arr)
+          // } else if (items.ORDERSTATUS == '新订单' || items.ORDERSTATUS == '已分配') {
+          //   this.padding += 1
+          //   let arr = [items.SOORDER, items.ORDERTYPE, items.SKUGROUP, items.ORDERSTATUS, items.PALLETQTY, items.VOLUME, '中国牧工商集团']
+          //   inData.push(arr)
+          // }
+          if(items.ORDERSTATUS == '已关闭/结算') {
+            this.close += 1
+            let arr = [items.POORDER, items.ORDERTYPE, items.SKUGROUP, items.ORDERSTATUS, items.PALLETQTY, items.VOLUME, '中国牧工商集团']
+          inData.push(arr)
+          }
+         
+        })
+        let header = ['订单号', '订单类型', '物料类型', '状态', '托数', '体积(㎡)', '目的地']
+        this.config1 = {
+          header,
+          data: inData,
+          align: ['center', 'center', 'center', 'center', 'center', 'center', 'center'],
+          hoverPause: false,
+          headerBGC: '#1A3FE02E',
+          oddRowBGC: '#132235',
+          evenRowBGC: '#132235',
+          carousel: 'page',
+          waitTime: '5000',
+          // columnWidth: [180, 80, 100, 120, 80, 80, 150]
+        }
+
+      }).catch((err) => {
+        console.log('请求失败' + err.message);
+      })
+    }
+  },
+  destroyed() {
 
   }
 }
@@ -150,6 +216,7 @@ export default {
       background-position: 30px;
       font-size: px2vw(40px)
     }
+
     span:nth-child(2) {
       margin-right: px2vw(30px);
       padding-right: px2vw(10px);
@@ -180,15 +247,17 @@ export default {
 
   .form::v-deep {
     width: px2vw(1938px);
-    height: px2vh(470px);
+    height: px2vh(476px);
 
     .header {
       background-color: rgba(26, 63, 224, 0.25) !important;
+      font-size: px2vw(30px);
     }
 
     .rows {
       .row-item {
         background-color: rgba(26, 63, 224, 0.1800) !important;
+        font-size: px2vw(27px);
       }
     }
   }

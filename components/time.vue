@@ -39,7 +39,7 @@ export default {
   props: {
     bgsize: {
       type: Number,
-      default: 70
+      default: 100
     },
     bgcolor: {
       type: String,
@@ -96,27 +96,29 @@ $clock-size: px2vw(var(--clock-size));
 $length-log2E: px2vw(var(--length-log2E));
 
 .time {
-  width: px2vw(300px);
-  height: px2vh(150px);
-  border: 1px solid #fff;
-  border-radius: 10px;
+  width: px2vw(400px);
+  height: px2vh(200px);
+  border: px2vw(2px) solid #ccc;
+  border-radius: 20px;
   display: flex;
   align-items: center
 }
 
 .txt {
   color: #fff;
-  width: px2vw(150px);
+  width: px2vw(190px);
   text-align: center;
-  line-height: px2vh(45px);
+  line-height: px2vh(50px);
   margin-right: px2vw(10px);
+  margin-left: px2vw(5px);
+  font-size: px2vw(34px);
 }
 
 
 /* 外部大小和阴影 */
 .clock {
-  width: px2vh(130px);
-  height: px2vh(130px);
+  width: px2vh(180px);
+  height: px2vh(180px);
   border-radius: 50%;
   // box-shadow: 5px 5px 10px $clock-size, -4px -4px 8px #fff;
   position: relative;

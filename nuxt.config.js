@@ -62,7 +62,6 @@ export default {
   */
   modules: [
     // Doc: https://http.nuxtjs.org
-    '@nuxt/http',
     '@nuxtjs/axios',
     '@nuxtjs/proxy'
   ],
@@ -77,7 +76,8 @@ export default {
       target: 'http://localhost:3000',
       pathRewrite: {
         '^/api': ''
-      }
+      },
+      
     }
   },
 
@@ -92,7 +92,7 @@ export default {
   ** For deployment you might want to edit host and port
   */
   server: {
-   port: 80, // default: 3000
+   port: 8000, // default: 3000
    host: '0.0.0.0' // default: localhost
   },
 

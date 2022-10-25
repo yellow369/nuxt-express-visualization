@@ -9,7 +9,6 @@
     <div class="content" id="main">
 
     </div>
-
   </div>
 </template>
 
@@ -23,7 +22,7 @@ export default {
   data() {
     // console.log(this.data.map((items) => items.ORDERDATE));
 
-    return { data: null, i: 0 }
+    return { data: null, i: 0, times: null }
   },
   head() {
     return {
@@ -32,21 +31,30 @@ export default {
   },
   mounted() {
 
-    this.$axios.post('request/volume').then((res) => {
-      this.data = res.data.data
+    this.get()
+    this.times = setInterval(() => {
+      this.get()
+    }, 12000)
 
-      this.drawCharts()
-      window.onresize = () => {
-        this.drawCharts()
-      }
-    }).catch((err) => {
-      console.log('请求失败' + err.message);
+    this.$once('hook:beforeDestroy', () => {
+      clearInterval(this.times);
+      this.times = null;
     })
-
-
-
   },
   methods: {
+    get() {
+      this.$axios.post('request/volume').then((res) => {
+        this.data = res.data.data
+
+        this.drawCharts()
+        window.onresize = () => {
+          this.drawCharts()
+        }
+      }).catch((err) => {
+        console.log('请求失败' + err.message);
+      })
+    },
+
     drawCharts() {
       let out = this.data.filter((items) => {
         if (items.TYPE == '出库') {
@@ -54,10 +62,7 @@ export default {
         }
       })
       let volume = out.map((items) => items.VOLUME)
-      let outTime = out.map((items) => {
-        this.i += 1 
-        return this.i
-      })
+      let outTime = out.map((items) => items.ORDERDATE)
 
       let into = this.data.filter((items) => {
         if (items.TYPE == '入库') {
@@ -84,7 +89,7 @@ export default {
           left: '3%',
           right: '2%',
           bottom: '0%',
-          top: '0%',
+          top: '4%',
           containLabel: true
         },
         xAxis: {
@@ -93,8 +98,11 @@ export default {
           axisLabel: {
             show: true,
             textStyle: {
-              color: "#fff",
-            }
+              color: "#fff", 
+              fontSize: 15
+            },
+            // interval: 'auto',
+            // rotate: 50
           },
         },
         yAxis: {
@@ -132,6 +140,9 @@ export default {
       });
       myCharts.resize()
     }
+  },
+  destroyed() {
+
   }
 }
 </script>
@@ -172,8 +183,6 @@ export default {
 
       }
     }
-
-
   }
 
   .content {

@@ -19,7 +19,7 @@ router.post('/txt/report/content', (req, res) => {
           if (err) {
             console.log(err.message);
           }
-          console.log('txt content');
+          console.log('txt 内容');
           res.send(dataStr)
         })
       }
@@ -42,7 +42,7 @@ router.post('/txt/report/title', (req, res) => {
           if (err) {
             console.log(err.message);
           }
-          console.log('txt title');
+          console.log('txt 文件名');
           res.send(e)
         })
       }

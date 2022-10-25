@@ -9,8 +9,8 @@
           <div v-if="nav">
             <nuxt-link to="/">首页</nuxt-link>
             <nuxt-link to="/upload">上传</nuxt-link>
-            <nuxt-link to="/board">数据看板1</nuxt-link>
-            <nuxt-link to="/board/data">数据看板2</nuxt-link>
+            <nuxt-link to="/board">安全看板</nuxt-link>
+            <nuxt-link to="/board/data">运营看板</nuxt-link>
           </div>
         </div>
         <Nuxt />

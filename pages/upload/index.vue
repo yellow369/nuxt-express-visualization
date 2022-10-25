@@ -1,22 +1,22 @@
 <template>
   <div class="container">
-    <el-upload class="upload-demo" drag action="http://localhost:3000/api/upload/check" :accept="'.xlsx, .xls'">
+    <el-upload class="upload-demo" drag action="/api/upload/check" :accept="'.xlsx, .xls'">
       <i class="el-icon-upload"></i>
-      <div class="el-upload__text">FM消防检查信息、虫鼠害检查信息</div>
+      <div class="el-upload__text">安全检查信息文件</div>
     </el-upload>
-    <el-upload class="upload-demo" drag action="http://localhost:3000/api/upload/security" :accept="'.xlsx, .xls'">
+    <el-upload class="upload-demo" drag action="/api/upload/security" :accept="'.xlsx, .xls'">
       <i class="el-icon-upload"></i>
       <div class="el-upload__text">安全事故文件</div>
     </el-upload>
-    <el-upload class="upload-demo" drag action="http://localhost:3000/api/upload/stock" :accept="'.xlsx, .xls'">
+    <el-upload class="upload-demo" drag action="/api/upload/stock" :accept="'.xlsx, .xls'">
       <i class="el-icon-upload"></i>
       <div class="el-upload__text">原材料库位文件</div>
     </el-upload>
-    <el-upload class="upload-demo" drag action="http://localhost:3000/api/upload/order" :accept="'.xlsx, .xls'">
+    <el-upload class="upload-demo" drag action="/api/upload/order" :accept="'.xlsx, .xls'">
       <i class="el-icon-upload"></i>
       <div class="el-upload__text">原材料预约文件</div>
     </el-upload>
-    <el-upload class="upload-demo" drag action="http://localhost:3000/api/upload/t" :accept="'.txt'">
+    <el-upload class="upload-demo" drag action="/api/upload/t" :accept="'.txt'">
       <i class="el-icon-upload"></i>
       <div class="el-upload__text">公告文栏文件</div>
     </el-upload>
@@ -45,6 +45,9 @@ export default {
   components: {},
   computed: {
 
+
+  },
+  methods: {
 
   }
 }

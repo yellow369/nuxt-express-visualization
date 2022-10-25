@@ -7,14 +7,14 @@
       <div class="count">
         <div class="line-top"></div>
         <div style="display: flex;align-items: center;justify-content: center">
-          <div style="width: 45%">
-            <dv-digital-flop :config="config1" class="flop" /><br />
-            预约总数量
+          <div style="width: 45%;text-align: center;">
+            <div class="flop">{{config1}}</div>
+            <span>预约总数量</span>
           </div>
           <div style="height: 30%; width: 1px; color: rgba(256, 256, 256, 0.2);font-size: 30px;">|</div>
           <div style="width: 45%; height: 80%">
-            <dv-digital-flop :config="config2" class="flop" /> <br />
-            预约总拍数
+            <div class="flop" style="color: #12B8E9">{{config2}}</div>
+            <span>预约总拍数</span>
           </div>
         </div>
       </div>
@@ -47,6 +47,7 @@ export default {
       config: null,
       config1: null,
       config2: null,
+      times: null
     }
   },
   head() {
@@ -55,38 +56,14 @@ export default {
     }
   },
   mounted() {
-    this.$axios.post('xlsx/order').then((res) => {
-      console.log(res.data[0]);
-      let data = res.data[0].data
-      // console.log(this.data.map((items) => items.ORDERDATE));
-      let form = data
-      let header = []
-      if (form[0].indexOf('当前日期') !== -1) {
-        header = res.data[0].data[0]
-        form.shift()
-      }
-      this.change(form)
+    this.get()
+    this.times = setInterval(() => {
+      this.get()
+    }, 20000)
 
-      let num1 = 0
-      let num2 = 0
-      form.map((item) => {
-        num1 += item[7]
-        num2 += item[8]
-      })
-      let sty = []
-      data[0].map((item) => sty.push('center'))
-
-      this.config = {
-        header,
-        data: form,
-        align: sty,
-        hoverPause: false,
-        headerBGC: '#1A3FE02E',
-      }
-      this.config1 = { number: [num1] }
-      this.config2 = { number: [num2] }
-    }).catch((err) => {
-      console.log('请求失败' + err.message);
+    this.$once('hook:beforeDestroy', () => {
+      clearInterval(this.times);
+      this.times = null;
     })
   },
   methods: {
@@ -94,12 +71,51 @@ export default {
     change(e) {
       e.map((item, index) => {
         if (item.indexOf('已完成') !== -1) {
-          e[index][e[index].indexOf('已完成')] = '<div style="line-height: 60px"><span style="color: #00C430;font-weight: 700;font-size: 17px;padding-right: 2px">●</span>已完成</div>'
+          e[index][e[index].indexOf('已完成')] = '<div ><span style="color: #00C430;font-weight: 600;font-size: 1.5vh;padding-right: 2px">●</span>已完成</div>'
         } else if (item.indexOf('未完成') !== -1) {
-          e[index][e[index].indexOf('未完成')] = '<div style="line-height: 60px"><span style="color: #FF1600;font-weight: 700;font-size: 17px;padding-right: 2px">●</span>未完成</div>'
+          e[index][e[index].indexOf('未完成')] = '<div ><span style="color: #FF1600;font-weight: 600;font-size: 1.5vh;padding-right: 2px">●</span>未完成</div>'
         }
       })
+    },
+    get() {
+      this.$axios.post('xlsx/order').then((res) => {
+        console.log(res.data[0]);
+        let data = res.data[0].data
+        // console.log(this.data.map((items) => items.ORDERDATE));
+        let form = data
+        let header = []
+        if (form[0].indexOf('当前日期') !== -1) {
+          header = res.data[0].data[0]
+          form.shift()
+        }
+        this.change(form)
+
+        let num1 = 0
+        let num2 = 0
+        form.map((item) => {
+          num1 += item[7]
+          num2 += item[8]
+        })
+        let sty = []
+        data[0].map((item) => sty.push('center'))
+
+        this.config = {
+          header,
+          data: form,
+          align: sty,
+          hoverPause: false,
+          headerBGC: '#1A3FE02E',
+          waitTime: '4000'
+        }
+        this.config1 = num1
+        this.config2 = num2
+      }).catch((err) => {
+        console.log('请求失败' + err.message);
+      })
     }
+  },
+  destroyed() {
+
   }
 }
 </script>
@@ -140,7 +156,7 @@ export default {
   }
 
   .count {
-    height: 75%;
+    height: px2vh(120px);
     width: px2vw(500px);
     margin-top: 1%;
     margin-right: 1%;
@@ -149,6 +165,7 @@ export default {
     color: #fff;
     text-align: center;
     font-weight: 600;
+
     .line-top {
       margin: 0 auto;
       width: px2vw(200px);
@@ -159,10 +176,16 @@ export default {
     }
 
     .flop {
-      display: inline-block;
-      width: px2vw(160px);
-      height: px2vh(60px);
-      vertical-align: middle
+      width: px2vw(220px);
+      height: px2vh(55px);
+      text-align: center;
+      color: #6496f9;
+      font-size: px2vw(50px);
+      margin-bottom: px2vh(3px);
+    }
+    span {
+      font-size: px2vh(35px);
+      line-height: px2vh(40px);
     }
   }
 }
@@ -196,11 +219,13 @@ export default {
 
     .header {
       background-color: rgba(26, 63, 224, 0.25) !important;
+      font-size: px2vw(30px);
     }
 
     .rows {
       .row-item {
         background-color: rgba(26, 63, 224, 0.1800) !important;
+        font-size: px2vw(26px);
       }
     }
   }

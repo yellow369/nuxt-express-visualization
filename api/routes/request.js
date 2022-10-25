@@ -2,6 +2,8 @@ import axios from "axios";
 
 const { Router } = require('express')
 
+const fs = require('fs')
+
 const router = Router()
 
 // 出入库体积
@@ -10,7 +12,7 @@ router.post('/request/volume', (req, res) => {
     "method": "executeSql",
     "sqlDescript": "WH051KB_QueryVolume"
 } ).then((data) => {
-  console.log('成功');
+  console.log('出入库体积请求--成功');
 
   res.send(data.data)
 }).catch((err) => {
@@ -27,7 +29,7 @@ router.post('/request/stock', (req, res) => {
     "procedureName": "WMWHSE51.rpt_kb_pkg.queryLocPer",
     "params": {}
 } ).then((data) => {
-  console.log('成功 库位');
+  console.log('库位信息请求--成功');
 
   res.send(data.data)
 }).catch((err) => {
@@ -40,7 +42,7 @@ router.post('/request/stock', (req, res) => {
 router.post('/request/in', (req, res) => {
   
   axios.post('https://infor.i.sinotrans.com/inforom/rest',{"method":"executeSql","sqlDescript":"WH051KB_QueryInOrderData"} ).then((data) => {
-  console.log('成功 入库');
+  console.log('入库请求--成功');
 
   res.send(data.data)
 }).catch((err) => {
@@ -53,7 +55,7 @@ router.post('/request/in', (req, res) => {
 router.post('/request/out', (req, res) => {
   
   axios.post('https://infor.i.sinotrans.com/inforom/rest',{"method":"executeSql","sqlDescript":"WH051KB_QueryOutOrderData"} ).then((data) => {
-  console.log('成功 出库');
+  console.log('出库请求--成功');
 
   res.send(data.data)
 }).catch((err) => {

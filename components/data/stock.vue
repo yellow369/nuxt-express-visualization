@@ -46,7 +46,8 @@ export default {
       numtotal: null,
       usenum: null,
       pertotal: 0,
-      sku: []
+      sku: [],
+      times: null
     }
   },
   head() {
@@ -55,41 +56,58 @@ export default {
     }
   },
   mounted() {
-    this.$axios.post('xlsx/stock').then((res) => {
-      this.total = res.data[0].data
-      if (this.total[0].indexOf('当前日期') !== -1) {
-        this.total.shift()
-      }
-      this.total.map((items) => this.numtotal += items[2])
-    }).catch((err) => {
-      console.log('请求失败' + err.message);
+    this.get()
+    this.getreq()
+
+    this.times = setInterval(() => {
+      this.get()
+      this.getreq()
+    }, 12000)
+
+    this.$once('hook:beforeDestroy', () => {
+      clearInterval(this.times);
+      this.times = null;
     })
-
-    this.$axios.post('request/stock').then((res) => {
-      this.data = res.data.p_msg
-      this.data.map((items) => {
-        this.usenum = Number(items.PALLETQTY) + this.usenum
-        this.usenum = Number(items.REZPALLETQTY) + this.usenum
-      })
-      this.pertotal = (this.usenum / this.numtotal * 100).toFixed(1)
-
-      this.sku.push(this.handle('恒温原料'))
-      this.sku.push(this.handle('低温原料'))
-      this.sku.push(this.handle('包材'))
-      this.sku.push(this.handle('花生'))
-      this.sku.push(this.handle('成品'))
-      this.$nextTick(() => {
-        this.darwCharts()
-      })
-    }).catch((err) => {
-      console.log('请求失败' + err.message);
-      // this.darwCharts()
-    })
-
-
-
   },
   methods: {
+    get() {
+      this.$axios.post('xlsx/stock').then((res) => {
+        this.numtotal = 0
+        this.total = res.data[0].data
+        if (this.total[0].indexOf('当前日期') !== -1) {
+          this.total.shift()
+        }
+        this.total.map((items) => this.numtotal += items[2])
+      })
+    },
+    getreq() {
+      this.$axios.post('request/stock').then((res) => {
+        this.usenum = 0
+        this.data = res.data.p_msg
+        this.data.map((items) => {
+          this.usenum = Number(items.PALLETQTY) + this.usenum
+          this.usenum = Number(items.REZPALLETQTY) + this.usenum
+        })
+        this.pertotal = (this.usenum / this.numtotal * 100).toFixed(1)
+
+        this.sku[0] = this.handle('恒温原料')
+        this.sku[1] = this.handle('低温原料')
+        this.sku[2] = this.handle('包材')
+        this.sku[3] = this.handle('花生')
+        this.sku[4] = this.handle('成品')
+        // this.sku.push(this.handle('低温原料'))
+        // this.sku.push(this.handle('包材'))
+        // this.sku.push(this.handle('花生'))
+        // this.sku.push(this.handle('成品'))
+        // this.$nextTick(() => {
+
+        // })
+        this.$nextTick(() => {
+          this.darwCharts()
+        })
+      })
+
+    },
     darwCharts() {
       // let myCharts = echarts.init(document.getElementsByClassName('charts'));
       let charts = document.getElementsByClassName('charts')
@@ -98,7 +116,7 @@ export default {
         myCharts.setOption({
           legend: {
             orient: 'horizontal',
-            bottom: 26,
+            bottom: '1%',
             left: 'center',
             textStyle: {
               color: '#ccc'
@@ -106,7 +124,7 @@ export default {
           },
           grid: {
             left: '1%',
-            right: '8%',
+            right: '13%',
             bottom: '8%',
             top: '0%',
             containLabel: true
@@ -142,7 +160,7 @@ export default {
                 color: '#4C87F5',
                 formatter: `${this.sku[i][3]}%`
               },
-              barWidth: 30,
+              barWidth: '15%',
             },
             {
               name: `Kind ${this.sku[i][2]}`,
@@ -154,12 +172,15 @@ export default {
                 color: '#C128E5',
                 formatter: `${this.sku[i][1]}%`
               },
-              barWidth: 30,
+              barWidth: '15%',
             },
           ],
           color: ['rgba(78, 225, 255, 0.8000)', 'rgba(78, 135, 255, 1)']
         });
       }
+    },
+    setCharts() {
+
     },
     handle(text) {
       let tNum
@@ -202,6 +223,9 @@ export default {
         return 'per-green'
       }
     }
+  },
+  destroyed() {
+
   }
 }
 </script>
@@ -254,6 +278,7 @@ export default {
     line-height: px2vh(150px);
     font-size: px2vw(32px);
     margin-right: px2vw(100px);
+
     span {
       padding-left: px2vw(30px);
     }
@@ -278,25 +303,29 @@ export default {
     background-position: 0 0px;
     background-size: 100%;
 
-
-    .title-text {
-      width: px2vw(300px);
+    .item-title {
+      width: px2vw(750px);
       height: px2vh(80px);
-      font-size: px2vh(40px);
-      color: #FFFFFF;
-      line-height: px2vh(80px);
-      letter-spacing: 5px;
-      margin-left: px2vw(15px);
+      
+      .title-text {
+        display: inline-block;
+        font-size: px2vh(40px);
+        color: #FFFFFF;
+        line-height: px2vh(80px);
+        letter-spacing: 5px;
+        margin-left: px2vw(15px);
+      }
+
     }
 
     .charts {
       width: px2vw(750px);
-      height: px2vh(270px);
+      height: px2vh(250px);
     }
 
     span {
       font-size: px2vw(25px);
-      padding-left: px2vw(60px);
+      padding-left: px2vw(20px);
     }
   }
 }

@@ -1,5 +1,7 @@
-const express = require('express');
-const router = express.Router();
+
+const { Router } = require('express')
+
+const router = Router()
 
 const multer = require('multer')
 const fs = require('fs')
@@ -61,7 +63,6 @@ router.post('/upload', multer({
 
 })
 
-
 //txt
 router.post('/upload/t', deletetxt, multer({ dest: 'upload',
 fileFilter(req, file, callback) {
@@ -72,14 +73,13 @@ fileFilter(req, file, callback) {
   callback(null, true);
 }
 }).single('file'), (req, res) => {
-  
+  console.log('txt upload');
   // console.log(req.file);
   fs.renameSync(req.file.path, `upload/${req.file.originalname}`)
   // change(`upload/${req.file.originalname}`,'utf-8', './upload/port.txt')
   res.send('ok')
 
 })
-
 
 // 安全事故
 router.post('/upload/security', multer({
@@ -159,6 +159,16 @@ router.post('/upload/stock', multer({
     })
     throw new Error('文件类型错误')
   }
+})
+
+
+router.post('/upload/test',  (req, res) => {
+  console.log('txt upload');
+  // console.log(req.file);
+  // fs.renameSync(req.file.path, `upload/1.txt`)
+  // change(`upload/${req.file.originalname}`,'utf-8', './upload/port.txt')
+  res.send('test ok')
+
 })
 
 module.exports = router
