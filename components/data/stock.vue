@@ -125,7 +125,7 @@ export default {
           grid: {
             left: '1%',
             right: '13%',
-            bottom: '8%',
+            bottom: '2%',
             top: '0%',
             containLabel: true
           },
@@ -209,8 +209,12 @@ export default {
         }
       })
       if (text == '花生') {
-        skuPackageNum[3] = 0
-        skuPackageNum[4] = 0
+        let num = skuPackageNum[1]
+        let num2 = skuPackageNum[2]
+        skuPackageNum[3] = num
+        skuPackageNum[4] = num2
+        skuPackageNum[1] = 0
+        skuPackageNum[2] = 0
       }
       return skuPackageNum
     },
@@ -304,16 +308,16 @@ export default {
     background-size: 100%;
 
     .item-title {
-      width: px2vw(750px);
+      width: px2vw(810px);
       height: px2vh(80px);
       
       .title-text {
         display: inline-block;
-        font-size: px2vh(40px);
+        font-size: px2vw(40px);
         color: #FFFFFF;
-        line-height: px2vh(80px);
+        line-height: px2vw(80px);
         letter-spacing: 5px;
-        margin-left: px2vw(15px);
+        margin-left: px2vw(5px);
       }
 
     }
@@ -325,7 +329,7 @@ export default {
 
     span {
       font-size: px2vw(25px);
-      padding-left: px2vw(20px);
+      padding-left: px2vw(10px);
     }
   }
 }

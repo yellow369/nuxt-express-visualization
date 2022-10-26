@@ -20,7 +20,10 @@
       <i class="el-icon-upload"></i>
       <div class="el-upload__text">公告文栏文件</div>
     </el-upload>
-
+    <el-upload class="upload-demo" drag action="/api/upload/video" :accept="'.mp4'">
+      <i class="el-icon-upload"></i>
+      <div class="el-upload__text">安全视频文件</div>
+    </el-upload>
   </div>
 </template>
 

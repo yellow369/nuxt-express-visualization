@@ -13,8 +13,8 @@
           <div class="text">嘉兴玛氏项目入库信息</div>
         </div>
         <div class="num">
-          <span>已关闭 &nbsp; <span style="color: yellow">{{close}}</span></span>
-          <!-- <span>全部发运 &nbsp; <span style="color: rgba(27, 248, 247, 1)">{{deliver}}</span></span> -->
+          <span>已完成 &nbsp; <span style="color: yellow">{{close}}</span></span>
+          <span>未完成 &nbsp; <span style="color: rgba(27, 248, 247, 1)">{{unclose}}</span></span>
         </div>
       </div>
       <div class="content">
@@ -48,19 +48,18 @@ export default {
   },
   data() {
     // console.log(this.data.map((items) => items.ORDERDATE));
-
     return {
       config: null,
       config1: null,
       padding: 0,
       deliver: 0,
       times: null,
-      close: 0
+      close: 0,
+      unclose: 0
     }
   },
   head() {
     return {
-
     }
   },
   mounted() {
@@ -76,6 +75,9 @@ export default {
       this.times = null;
 
     })
+    // let test = '0.22'
+    // let rge = /^\./
+    // console.log(rge.test(test));
   },
   methods: {
     get() {
@@ -85,13 +87,20 @@ export default {
         this.deliver = 0
         this.padding = 0
         out.map((items) => {
+          let rge = /^\./
+          if (rge.test(items.VOLUME)) {
+            items.VOLUME = '0' + items.VOLUME
+          }
           if (items.ORDERSTATUS == '全部发运') {
             this.deliver += 1
-            let arr = [items.SOORDER, items.ORDERTYPE, items.SKUGROUP, items.ORDERSTATUS, items.PALLETQTY, items.VOLUME, '中国牧工商集团']
+            let arr = [items.SOORDER, items.ORDERTYPE, items.SKUGROUP, items.ORDERSTATUS, items.PALLETQTY, items.VOLUME, items.TOSTOCKCODE,]
             outData.push(arr)
           } else if (items.ORDERSTATUS == '新订单' || items.ORDERSTATUS == '已分配') {
             this.padding += 1
-            let arr = [items.SOORDER, items.ORDERTYPE, items.SKUGROUP, items.ORDERSTATUS, items.PALLETQTY, items.VOLUME, '中国牧工商集团']
+            if (items.VOLUME) {
+
+            }
+            let arr = [items.SOORDER, items.ORDERTYPE, items.SKUGROUP, items.ORDERSTATUS, items.PALLETQTY, items.VOLUME, items.TOSTOCKCODE]
             outData.push(arr)
           }
         })
@@ -106,7 +115,7 @@ export default {
           evenRowBGC: '#132235',
           carousel: 'page',
           waitTime: '5000',
-          // columnWidth: [180, 80, 100, 120, 80, 80, 150]
+          columnWidth: [120,]
         }
 
       }).catch((err) => {
@@ -118,25 +127,25 @@ export default {
         let resin = res.data.data
         let inData = []
         this.close = 0
+        this.unclose = 0
 
         resin.map((items) => {
-          // if (items.ORDERSTATUS == '全部发运') {
-          //   this.deliver += 1
-          //   let arr = [items.SOORDER, items.ORDERTYPE, items.SKUGROUP, items.ORDERSTATUS, items.PALLETQTY, items.VOLUME, '中国牧工商集团']
-          //   inData.push(arr)
-          // } else if (items.ORDERSTATUS == '新订单' || items.ORDERSTATUS == '已分配') {
-          //   this.padding += 1
-          //   let arr = [items.SOORDER, items.ORDERTYPE, items.SKUGROUP, items.ORDERSTATUS, items.PALLETQTY, items.VOLUME, '中国牧工商集团']
-          //   inData.push(arr)
-          // }
-          if(items.ORDERSTATUS == '已关闭/结算') {
-            this.close += 1
-            let arr = [items.POORDER, items.ORDERTYPE, items.SKUGROUP, items.ORDERSTATUS, items.PALLETQTY, items.VOLUME, '中国牧工商集团']
-          inData.push(arr)
+          let rge = /^\./
+          if (rge.test(items.VOLUME)) {
+            items.VOLUME = '0' + items.VOLUME
           }
-         
+          if (items.ORDERSTATUS == '已关闭/结算') {
+            this.close += 1
+            let arr = [items.POORDER, items.ORDERTYPE, items.SKUGROUP, items.ORDERSTATUS, items.PALLETQTY, items.VOLUME, items.SUPNAME]
+            inData.push(arr)
+          } else {
+            this.unclose += 1
+            let arr = [items.POORDER, items.ORDERTYPE, items.SKUGROUP, items.ORDERSTATUS, items.PALLETQTY, items.VOLUME, items.SUPNAME]
+            inData.push(arr)
+          }
+
         })
-        let header = ['订单号', '订单类型', '物料类型', '状态', '托数', '体积(㎡)', '目的地']
+        let header = ['订单号', '订单类型', '物料类型', '状态', '托数', '体积(㎡)', '供应商']
         this.config1 = {
           header,
           data: inData,
@@ -147,7 +156,7 @@ export default {
           evenRowBGC: '#132235',
           carousel: 'page',
           waitTime: '5000',
-          // columnWidth: [180, 80, 100, 120, 80, 80, 150]
+          columnWidth: [120]
         }
 
       }).catch((err) => {

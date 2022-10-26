@@ -12,7 +12,7 @@
           <div class="circular">
             <div class="complete" v-if="item[4] == '已完成'">✔</div>
           </div>
-          <p>{{item[3]}}</p>
+          <p>{{item[3].slice(5)}}</p>
           <p>{{item[2]}}</p>
         </div>
       </div>
@@ -28,7 +28,7 @@
           <div class="circular">
             <div class="complete" v-if="item[4] == '已完成'">✔</div>
           </div>
-          <p>{{item[3]}}</p>
+          <p>{{item[3].slice(5)}}</p>
           <p>{{item[2]}}</p>
         </div>
       </div>
@@ -80,6 +80,7 @@ export default {
         console.log(this.par);
         this.par.map((items) => {
           if (items[1] == 'FM消防检查') {
+          items[3].slice(5)
             this.record.push(items)
           } else if (items[1] == '虫鼠害检查') {
             this.mouse.push(items)
@@ -98,27 +99,54 @@ export default {
 
 .check {
   width: px2vw(1900px);
+  display: flex;
 }
 
 .fm {
-  width: px2vw(1260px);
-  display: inline-block;
+  width: px2vw(1300px);
+
 }
 
 .mouse {
-  width: px2vw(500px);
-  display: inline-block;
-  // margin-left: px2vw(100px);
+  width: px2vw(400px);
 
-  .title {
-    width: px2vw(250px);
+  margin-left: px2vw(100px);
 
-  }
-
-  .content {
+  .content-mouse {
     width: px2vw(400px);
+    height: px2vh(120px);
+    margin-top: px2vh(30px);
+    display: flex;
+    justify-content: space-around;
+
+    .circular {
+      width: px2vw(140px);
+      height: px2vw(140px);
+      border-radius: px2vw(70px);
+      background-color: #518BC3;
+      margin: 5px;
+
+      .complete {
+        width: 100%;
+        height: 100%;
+        font-size: px2vw(70px);
+        background-color: #00E0E2;
+        border-radius: px2vw(70px);
+        color: rgba(0, 0, 0, 0.721);
+        font-weight: 700;
+        text-align: center;
+        line-height: px2vw(140px);
+      }
+    }
+
+    p {
+      width: px2vw(150px);
+      text-align: center;
+      color: rgba(255, 255, 255, 0.733);
+    }
 
   }
+
 }
 
 .banner {
@@ -141,7 +169,7 @@ export default {
 }
 
 .content {
-  width: px2vw(1100px);
+  width: px2vw(1300px);
   height: px2vh(120px);
   color: #fff;
   margin-top: px2vh(30px);
@@ -175,38 +203,6 @@ export default {
     color: rgba(255, 255, 255, 0.733);
   }
 
-
-}
-
-.content-mouse {
-  width: px2vw(500px);
-  height: px2vh(120px);
-
-  .circular {
-    width: px2vw(140px);
-    height: px2vw(140px);
-    border-radius: px2vw(70px);
-    background-color: #518BC3;
-    margin: 5px;
-
-    .complete {
-      width: 100%;
-      height: 100%;
-      font-size: px2vw(70px);
-      background-color: #00E0E2;
-      border-radius: px2vw(70px);
-      color: rgba(0, 0, 0, 0.721);
-      font-weight: 700;
-      text-align: center;
-      line-height: px2vw(140px);
-    }
-  }
-
-  p {
-    width: px2vw(150px);
-    text-align: center;
-    color: rgba(255, 255, 255, 0.733);
-  }
 
 }
 </style>

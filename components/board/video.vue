@@ -6,7 +6,9 @@
       </div>
     </div>
     <dv-border-box-12 class="content">
-      <img src="@/assets/video.jpg" alt="">
+      <div class="border">
+        <video src="/api/video" autoplay loop muted></video>
+      </div>
     </dv-border-box-12>
   </div>
 </template>
@@ -22,7 +24,7 @@ export default {
 
     return {
 
-
+      src: ''
     }
   },
   head() {
@@ -30,7 +32,21 @@ export default {
 
     }
   },
+  methods: {
+    get() {
+      this.$axios.post('video').then((res) => {
+        this.src = res.data
+        console.log(res);
+      }).catch((err) => {
+        console.log('请求失败' + err.message);
+      })
 
+    }
+  },
+  mounted() {
+
+    // this.get()
+  }
 }
 </script>
 
@@ -78,14 +94,22 @@ export default {
     width: px2vw(800px);
     height: px2vh(500px);
     margin-top: px2vh(20px);
-    padding: px2vh(12px);
+    padding: px2vh(22px);
     overflow: hidden;
 
-    img {
-      height: px2vh(476px);
-      width: px2vw(776px);
-      border-radius: 8px;
+    .border {
+      height: 98%;
+      width: 100%;
+      border-radius: 10px;
+      overflow: hidden;
+      // background-color: #fff;
+
+      video {
+        height: 100%;
+        width: 100%;
+      }
     }
+
   }
 }
 </style>

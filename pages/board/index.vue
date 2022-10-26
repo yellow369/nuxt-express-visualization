@@ -15,7 +15,6 @@
         </div>
       </div>
       <img src="../../assets/img/three.png" alt="">
-
       <!-- <img src="../../assets/img/three.png" alt="" class="img3"> -->
       <!-- <img src="../../assets/img/three1.png" alt="" class="img1"> -->
     </div>

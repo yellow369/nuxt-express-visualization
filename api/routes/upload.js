@@ -7,7 +7,7 @@ const multer = require('multer')
 const fs = require('fs')
 const xlsx = require('node-xlsx')
 
-const deletetxt = require('../mid/deletetxt')
+const {deletetxt,deletevideo} = require('../mid/deletefile')
 
 //修改文件
 let change = (path, code, re) => {
@@ -161,6 +161,23 @@ router.post('/upload/stock', multer({
   }
 })
 
+// 视频
+router.post('/upload/video', deletevideo, multer({
+  dest: 'upload',
+  fileFilter(req, file, callback) {
+    // 解决中文名乱码的问题
+    file.originalname = Buffer.from(file.originalname, "latin1").toString(
+      "utf8"
+    );
+    callback(null, true);
+  }
+}).single('file'), (req, res) => {
+  console.log('video upload');
+  // console.log(req.file);
+  fs.renameSync(req.file.path, `upload/安全视频.mp4`)
+  res.send('ok')
+
+})
 
 router.post('/upload/test',  (req, res) => {
   console.log('txt upload');

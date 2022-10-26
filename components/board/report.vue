@@ -47,8 +47,8 @@ export default {
       const bottom1 = text.getBoundingClientRect().bottom;
 
       // console.log(Math.ceil(swiper.offsetHeight / text.offsetHeight));
-      console.log(bottom);
-      console.log(bottom1);
+      // console.log(bottom);
+      // console.log(bottom1);
       if (bottom > bottom1) {
 
         // swiper.style.transform = 'translate(100px, 0)'

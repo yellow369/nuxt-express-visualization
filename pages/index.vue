@@ -9,12 +9,12 @@
       </div>
       <div class="links">
         <a href="/board" class="button--green">
-          数据看板1
+          安全看板
         </a>
       </div>
       <div class="links">
         <a href="/board/data" class="button--green">
-          数据看板2
+          运营看板
         </a>
       </div>
     </div>

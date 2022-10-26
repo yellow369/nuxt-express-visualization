@@ -62,7 +62,7 @@ export default {
         }
       })
       let volume = out.map((items) => items.VOLUME)
-      let outTime = out.map((items) => items.ORDERDATE)
+      let outTime = out.map((items) => items.ORDERDATE.slice(5))
 
       let into = this.data.filter((items) => {
         if (items.TYPE == '入库') {
@@ -99,7 +99,7 @@ export default {
             show: true,
             textStyle: {
               color: "#fff", 
-              fontSize: 15
+              // fontSize: 14
             },
             // interval: 'auto',
             // rotate: 50

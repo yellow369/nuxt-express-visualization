@@ -24,9 +24,9 @@ router.post('/txt/report/content', (req, res) => {
         })
       }
     })
-
   })
 })
+
 
 router.post('/txt/report/title', (req, res) => {
   

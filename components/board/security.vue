@@ -19,7 +19,7 @@ export default {
   },
   data() {
 
-    return { date: [] }
+    return { date: [], }
 
   },
   head() {
@@ -44,6 +44,8 @@ export default {
       }).catch((err) => {
         console.log('请求失败' + err.message);
       })
+
+
     }
 
   },

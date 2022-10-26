@@ -20,12 +20,15 @@ const upload = require('./routes/upload')
 const xlsx = require('./routes/xlsx')
 const txt = require('./routes/txt')
 const request = require('./routes/request')
+const video = require('./routes/video')
 
 // Import API Routes
 app.use(upload)
 app.use(xlsx)
 app.use(txt)
 app.use(request)
+app.use(video)
+app.use('/upload', express.static(__dirname + 'upload'));
 
 // Export express app
 module.exports = app

@@ -3,6 +3,10 @@
     <div class="banner">
       <div class="title">
         <div class="text">原材料预约信息</div>
+
+      </div>
+      <div class="day">
+       <p> 当前日期：{{day}}</p>
       </div>
       <div class="count">
         <div class="line-top"></div>
@@ -47,7 +51,8 @@ export default {
       config: null,
       config1: null,
       config2: null,
-      times: null
+      times: null,
+      day: ''
     }
   },
   head() {
@@ -71,13 +76,16 @@ export default {
     change(e) {
       e.map((item, index) => {
         if (item.indexOf('已完成') !== -1) {
-          e[index][e[index].indexOf('已完成')] = '<div ><span style="color: #00C430;font-weight: 600;font-size: 1.5vh;padding-right: 2px">●</span>已完成</div>'
+          e[index][e[index].indexOf('已完成')] = '<div ><span style="color: #00C430;font-weight: 600;font-size: 1vh;padding-right: 2px">●</span>已完成</div>'
         } else if (item.indexOf('未完成') !== -1) {
-          e[index][e[index].indexOf('未完成')] = '<div ><span style="color: #FF1600;font-weight: 600;font-size: 1.5vh;padding-right: 2px">●</span>未完成</div>'
+          e[index][e[index].indexOf('未完成')] = '<div ><span style="color: #FF1600;font-weight: 600;font-size: 1vh;padding-right: 2px">●</span>未完成</div>'
         }
       })
     },
     get() {
+      let date = new Date()
+      this.day = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate()
+
       this.$axios.post('xlsx/order').then((res) => {
         console.log(res.data[0]);
         let data = res.data[0].data
@@ -96,6 +104,12 @@ export default {
           num1 += item[7]
           num2 += item[8]
         })
+
+        for (let i = 0; i < form.length; i++) {
+          form[i].shift()
+        }
+        header.shift()
+
         let sty = []
         data[0].map((item) => sty.push('center'))
 
@@ -105,7 +119,8 @@ export default {
           align: sty,
           hoverPause: false,
           headerBGC: '#1A3FE02E',
-          waitTime: '4000'
+          waitTime: '4000',
+          // columnWidth: [60,80,80,110,60,60,70,70],
         }
         this.config1 = num1
         this.config2 = num2
@@ -140,7 +155,7 @@ export default {
     // margin-left: px2vw(40px);
 
     .text {
-      width: 907px;
+      width: px2vw(400px);
       height: px2vh(150px);
       font-size: px2vw(45px);
       color: #4078FF;
@@ -150,8 +165,21 @@ export default {
       background: linear-gradient(360deg, #CFF0FD 0%, #FFFFFF 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      margin-left: px2vw(86px);
+      margin-left: px2vw(100px);
+    }
 
+
+
+  }
+
+  .day {
+    color: #fff;
+    height: px2vh(150px);
+    padding-top: px2vh(85px);
+    margin-left: px2vw(-680px);
+    p {
+      margin: auto 0;
+      font-size: px2vw(32px);
     }
   }
 
@@ -177,15 +205,16 @@ export default {
 
     .flop {
       width: px2vw(220px);
-      height: px2vh(55px);
+      height: px2vh(35px);
       text-align: center;
       color: #6496f9;
-      font-size: px2vw(50px);
+      font-size: px2vw(45px);
       margin-bottom: px2vh(3px);
     }
+
     span {
       font-size: px2vh(35px);
-      line-height: px2vh(40px);
+      // line-height: px2vh(40px);
     }
   }
 }
@@ -219,13 +248,13 @@ export default {
 
     .header {
       background-color: rgba(26, 63, 224, 0.25) !important;
-      font-size: px2vw(30px);
+      font-size: px2vw(28px);
     }
 
     .rows {
       .row-item {
         background-color: rgba(26, 63, 224, 0.1800) !important;
-        font-size: px2vw(26px);
+        font-size: px2vw(24px);
       }
     }
   }
