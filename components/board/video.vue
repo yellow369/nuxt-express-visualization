@@ -6,7 +6,7 @@
       </div>
     </div>
     <div class="content">
-      <video src="/api/video" autoplay loop muted></video>
+      <video src="/api/video" autoplay loop muted controls></video>
     </div>
   </div>
 </template>
@@ -96,7 +96,7 @@ export default {
     border-radius: 10px;
 
     video {
-      width: px2vw(880px);
+      width: px2vw(850px);
       height: px2vh(400px);
     }
 

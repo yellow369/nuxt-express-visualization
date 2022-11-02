@@ -10,15 +10,15 @@
       </div>
       <div class="count">
         <div class="line-top"></div>
-        <div style="display: flex;align-items: center;justify-content: center">
-          <div style="width: 45%;text-align: center;">
-            <div class="flop">{{ config1 }}</div>
-            <span>预约总数量(kg)</span>
+        <div class="num">
+          <div style="width: 50%;text-align: center;">
+            <div class="total">{{ config1 }}</div>
+            <p>预约总数量(kg)</p>
           </div>
-          <div style="height: 30%; width: 1px; color: rgba(256, 256, 256, 0.2);font-size: 30px;">|</div>
-          <div style="width: 45%; height: 80%">
-            <div class="flop" style="color: #12B8E9">{{ config2 }}</div>
-            <span>预约总拍数</span>
+          <div class="line"></div>
+          <div style="width: 48%;">
+            <div class="total" style="color: #12B8E9">{{ config2 }}</div>
+            <p>预约总拍数</p>
           </div>
         </div>
       </div>
@@ -222,20 +222,39 @@ export default {
       margin-top: -1px;
     }
 
-    .flop {
-      width: px2vw(220px);
-      height: px2vh(35px);
-      text-align: center;
-      color: #6496f9;
-      font-size: px2vw(45px);
-      margin-bottom: px2vh(3px);
+    .num {
+      height: px2vh(110px);
+      width: px2vw(500px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      .line {
+        height: 50%;
+        width: 0;
+        border-left: px2vw(5px) solid rgba(204, 204, 204, 0.5);
+      }
+
+      .total {
+        width: 100%;
+        height: px2vh(35px);
+        text-align: center;
+        color: #6496f9;
+        font-size: px2vw(45px);
+        line-height: px2vh(35px);
+        margin-bottom: px2vh(5px);
+      }
+
+      p {
+        font-size: px2vh(30px);
+        color: #C7F9FF;
+        height: px2vh(35px);
+        line-height: px2vh(35px);
+      }
     }
 
-    span {
-      font-size: px2vh(30px);
-      color: #C7F9FF;
-      // line-height: px2vh(40px);
-    }
+
+
   }
 }
 

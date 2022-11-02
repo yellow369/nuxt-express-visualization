@@ -3,9 +3,8 @@
     <div class="fm">
       <div class="banner">
         <div class="title">
-          <div class="text">FM消防检查</div>
+          <div class="text" style="text-align: left; margin-left: 6%;">FM消防检查</div>
         </div>
-
       </div>
       <div class="content">
         <div v-for="(item, index) in record" :key="index" class="item">
@@ -114,7 +113,7 @@ export default {
   width: px2vw(420px);
   height: px2vh(555px);
   margin-left: px2vw(40px);
-  background: url(../../assets/index/check/fmbg.png) no-repeat;
+  background: url(../../assets/index/check/mousebg.png) no-repeat;
   background-size: px2vw(420px) px2vh(557px);
 
 
@@ -162,13 +161,13 @@ export default {
 
   .title {
     height: px2vh(66px);
-    width: px2vw(366px);
-    font-size: px2vw(56px);
+    width: px2vw(400px);
+    font-size: px2vw(50px);
     line-height: px2vh(140px);
     font-weight: 600;
-    color: rgba(255, 255, 255, 0.751);
-    text-shadow: 0px 2px 25px #0083F0;
-    margin-left: px2vw(40px);
+    color: rgba(255, 255, 255, 0.9);
+      text-shadow: 0px 2px 25px #0083F0;
+    text-align: right;
   }
 }
 

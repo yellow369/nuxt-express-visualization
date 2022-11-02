@@ -8,14 +8,7 @@
       <Video></Video>
     </div>
     <Time></Time>
-    <div class="three">
-      <div class="banner">
-        <div class="title">
-          <div class="text">阀门:</div>
-        </div>
-      </div>
-      <img src="../../assets/img/three2.png" alt="">
-    </div>
+    <Three></Three>
   </div>
 </template>
 
@@ -26,14 +19,13 @@ import Check from '@/components/board/check.vue'
 import Report from '@/components/board/report.vue'
 import Video from '@/components/board/video.vue'
 import Time from '@/components/time1.vue'
+import Three from '@/components/board/three.vue'
 
 export default {
   async asyncData(context) {
     // let security = await context.$axios.post('xlsx/security')
     // let check = await context.$axios.post('xlsx/check')
     // console.log(check.data[0].data);
-
-
     return {
       times: null
     }
@@ -43,7 +35,7 @@ export default {
       title: "数据看板"
     };
   },
-  components: { Banner, Security, Check, Report, Video, Time },
+  components: { Banner, Security, Check, Report, Video, Time,Three },
   methods: {
 
 
@@ -94,42 +86,5 @@ export default {
   top: px2vh(120px);
 }
 
-.three {
-  width: px2vw(3500px);
-  height: px2vh(1200px);
-  margin: 0 auto;
-  margin-top: px2vh(20px);
-  text-align: center;
 
-  .banner {
-    width: px2vw(300px);
-    height: px2vh(70px);
-    padding: px2vw(4px);
-    margin-top: px2vw(100px);
-
-    .title {
-      font-size: px2vh(46px);
-      color: #18E8FC;
-      line-height: px2vh(52px);
-      letter-spacing: px2vw(7px);
-      text-shadow: 0px 2px 8px #0037BD;
-      background: linear-gradient(360deg, #AAE7FF 0%, #FFFFFF 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      font-weight: 700;
-    }
-  }
-
-  img {
-    height: px2vh(1100px);
-    margin-top: px2vh(-150px);
-    margin-left: px2vw(50px);
-    // transition: all 1s;
-  }
-}
-
-.imgremove {
-  transform: translateY(px2vh(-800px));
-
-}
 </style>

@@ -44,10 +44,7 @@ export default {
       }).catch((err) => {
         console.log('请求失败' + err.message);
       })
-
-
     }
-
   },
   mounted() {
     // console.log(this.data);
@@ -64,7 +61,6 @@ export default {
   destroyed() {
 
   }
-
 }
 </script>
 

@@ -39,27 +39,7 @@ export default {
       this.get()
     }, 10000)
 
-
-    this.times1 = setInterval(() => {
-      let swiper = document.getElementById('swi')
-      let text = document.querySelector('.txt')
-      const { top, right, bottom, left } = swiper.getBoundingClientRect();
-      const bottom1 = text.getBoundingClientRect().bottom;
-
-      // console.log(Math.ceil(swiper.offsetHeight / text.offsetHeight));
-      // console.log(bottom);
-      // console.log(bottom1);
-      console.log((bottom / bottom1));
-      if (bottom > bottom1) {
-        // swiper.style.transform = 'translate(100px, 0)'
-        this.distance += text.offsetHeight
-        swiper.style.top = -this.distance + 'px'
-      } else if (bottom < bottom1) {
-        swiper.style.top = '0px'
-        this.distance = 0
-      }
-    }, 15000)
-
+    this.roll()
     this.$once('hook:beforeDestroy', () => {
       clearInterval(this.times);
       clearInterval(this.times1);
@@ -83,6 +63,33 @@ export default {
       }).catch((err) => {
         console.log('请求失败' + err.message);
       })
+    },
+    roll() {
+      this.times1 = setInterval(() => {
+        let swiper = document.getElementById('swi')
+        let text = document.querySelector('.txt')
+        const { top, right, bottom, left } = swiper.getBoundingClientRect();
+        const bottom1 = text.getBoundingClientRect().bottom;
+        // console.log(Math.ceil(swiper.offsetHeight / text.offsetHeight));
+        // console.log(bottom);
+        // console.log(bottom1);
+        swiper.style.transition = ''
+        console.log((bottom / bottom1));
+        if (bottom > bottom1) {
+          // swiper.style.transform = 'translate(100px, 0)'
+          this.distance += text.offsetHeight / 3000
+          swiper.style.top = -this.distance + 'px'
+        } else if (bottom < bottom1) {
+          swiper.style.transition = 'all 1s'
+          swiper.style.top = '0px'
+          this.distance = 0
+          clearInterval(this.times1);
+          this.times1 = null;
+          setTimeout(() => {
+            this.roll()
+          }, 4000);
+        }
+      }, 2)
     }
   },
   destroyed() {
@@ -117,7 +124,7 @@ export default {
     .title {
       height: px2vh(120px);
       width: px2vw(300px);
-      font-size: px2vw(56px);
+      font-size: px2vw(50px);
       line-height: px2vh(120px);
       font-weight: 600;
       color: rgba(255, 255, 255, 0.9);
@@ -126,13 +133,13 @@ export default {
     }
 
     .txt {
-      text-indent: 2rem;
+      text-indent: 1rem;
       width: px2vw(700px);
       height: px2vh(410px);
       margin: 0 auto;
       //定义元素如何处理空白，pre-wrap：保留空白符序列，正常地进行换行；
       white-space: pre-wrap;
-      text-indent: 0px;
+      // text-indent: px2vw(40px);
       overflow: hidden;
       font-size: px2vw(28px);
       // margin-top: px2vh(120px);
@@ -140,8 +147,10 @@ export default {
 
       #swi {
         position: absolute;
-        transition: all 1s;
-        top: 0px
+        // transition: all 0.5s;
+        top: 0px;
+        font-family: 'Verdana';
+
       }
     }
   }
