@@ -1,11 +1,11 @@
 <template>
   <div class="board">
+    <Time></Time>
     <Banner></Banner>
     <div class="content">
-      <!-- <Time></Time> -->
       <div class="second">
         <Order></Order>
-        <Volume :data="volume"></Volume>
+        <Volume></Volume>
       </div>
       <Stock></Stock>
       <Infor></Infor>
@@ -14,22 +14,17 @@
 </template>
 
 <script>
-import Time from '@/components/time.vue'
+import Time from '@/components/time1.vue'
 import Banner from '@/components/banner.vue'
 import Volume from '@/components/data/volume.vue'
 import Order from '@/components/data/order.vue'
 import Stock from '@/components/data/stock.vue'
 import Infor from '@/components/data/infor.vue'
 
-
 export default {
   async asyncData(context) {
-    let volume = await context.$axios.post('request/volume')
-
 
     return {
-      volume: volume.data.data,
-
     }
   },
   head() {
@@ -57,11 +52,13 @@ export default {
 .board {
   min-height: 100vh;
   min-width: 100vh;
-  background-color: #000;
+  // background-color: #000;
+  background: url(../../assets/data/bg.png) no-repeat;
+  background-size: px2vw(4096px) px2vh(2160px);
 }
 
 .content {
-  padding: px2vh(41px) px2vh(86px);
+  padding: px2vh(0px) px2vh(86px);
 }
 
 .time {
@@ -76,10 +73,10 @@ export default {
 }
 
 .stock {
-  margin-top: px2vh(50px);
+  margin-top: px2vh(40px);
 }
 
 .infor {
-  margin-top: px2vh(50px);
+  margin-top: px2vh(40px);
 }
 </style>

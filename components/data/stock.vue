@@ -4,10 +4,16 @@
       <div class="title">
         <div class="text">原材料库存信息</div>
       </div>
+      <div class="num" style="margin-left: 400px">
+        <span>拍位总数：{{ numtotal }}</span>
+        <span>已使用：{{ usenum }} ( <a :class="colors(pertotal)">{{ pertotal }}%</a> )</span>
+        <span>剩余：{{ numtotal - usenum }}</span>
+      </div>
       <div class="num">
-        <span>拍位总数：{{numtotal}}</span>
-        <span>已使用：{{usenum}} ( <a :class="colors(pertotal)">{{pertotal}}%</a> )</span>
-        <span>剩余：{{numtotal - usenum}}</span>
+        <span>拍位利用率：</span>
+        <span style="color: rgba(116, 232, 62, 1)">● 0-80%</span>
+        <span style="color: rgba(215, 204, 47, 1)">● 80-90%</span>
+        <span style="color: rgba(255, 131, 20, 1)">● 90-100%</span>
       </div>
     </div>
 
@@ -15,11 +21,12 @@
       <div class="content-item" v-for="(item, index) in sku" :key="index">
         <div class="item-title">
           <div class="title-text">
-            {{item[0]}}
+            {{ item[0] }}
           </div>
-          <span>可用拍位：{{total[index][2]}}</span>
-          <span>拍位利用率：<a :class="colors(Number(sku[index][3]) + Number(sku[index][1]))">{{(Number(sku[index][3]) +
-          Number(sku[index][1])).toFixed(1)}}%</a></span>
+          <span>可用拍位：{{ total[index][2] }}</span>
+          <span>拍位利用率：<a :class="colors(Number(sku[index][3]) + Number(sku[index][1]))">{{ (Number(sku[index][3]) +
+              Number(sku[index][1])).toFixed(1)
+          }}%</a></span>
         </div>
         <div class="charts">
 
@@ -32,7 +39,7 @@
 
 <script>
 import * as echarts from 'echarts'
-
+import { colWidth } from '@/utils/width.js'
 
 export default {
   props: {
@@ -81,31 +88,35 @@ export default {
       })
     },
     getreq() {
-      this.$axios.post('request/stock').then((res) => {
-        this.usenum = 0
-        this.data = res.data.p_msg
-        this.data.map((items) => {
-          this.usenum = Number(items.PALLETQTY) + this.usenum
-          this.usenum = Number(items.REZPALLETQTY) + this.usenum
-        })
-        this.pertotal = (this.usenum / this.numtotal * 100).toFixed(1)
+      try {
+        this.$axios.post('request/stock').then((res) => {
+          this.usenum = 0
+          this.data = res.data.p_msg
+          this.data.map((items) => {
+            this.usenum = Number(items.PALLETQTY) + this.usenum
+            this.usenum = Number(items.REZPALLETQTY) + this.usenum
+          })
+          this.pertotal = (this.usenum / this.numtotal * 100).toFixed(1)
 
-        this.sku[0] = this.handle('恒温原料')
-        this.sku[1] = this.handle('低温原料')
-        this.sku[2] = this.handle('包材')
-        this.sku[3] = this.handle('花生')
-        this.sku[4] = this.handle('成品')
-        // this.sku.push(this.handle('低温原料'))
-        // this.sku.push(this.handle('包材'))
-        // this.sku.push(this.handle('花生'))
-        // this.sku.push(this.handle('成品'))
-        // this.$nextTick(() => {
+          this.sku[0] = this.handle('恒温原料')
+          this.sku[1] = this.handle('低温原料')
+          this.sku[2] = this.handle('包材')
+          this.sku[3] = this.handle('花生')
+          this.sku[4] = this.handle('成品')
+          // this.sku.push(this.handle('低温原料'))
+          // this.sku.push(this.handle('包材'))
+          // this.sku.push(this.handle('花生'))
+          // this.sku.push(this.handle('成品'))
+          // this.$nextTick(() => {
 
-        // })
-        this.$nextTick(() => {
-          this.darwCharts()
+          // })
+          this.$nextTick(() => {
+            this.darwCharts()
+          })
         })
-      })
+      } catch (res) {
+        console.log(res);
+      }
 
     },
     darwCharts() {
@@ -116,11 +127,13 @@ export default {
         myCharts.setOption({
           legend: {
             orient: 'horizontal',
-            bottom: '1%',
+            bottom: '0%',
             left: 'center',
             textStyle: {
               color: '#ccc'
             },
+            itemWidth: 10,
+            itemHeight: 10, 
           },
           grid: {
             left: '1%',
@@ -157,10 +170,27 @@ export default {
               label: {
                 show: true,
                 position: 'right',
-                color: '#4C87F5',
+                color: 'rgba(66, 183, 212, 1)',
                 formatter: `${this.sku[i][3]}%`
               },
-              barWidth: '15%',
+              barWidth: '18%',
+              itemStyle: {
+                color: {
+                  type: 'linear',
+                  x: 1, x2: 0, y: 1, y2: 0,
+                  colorStops: [
+                    {
+                      offset: 0,
+                      color: 'rgba(78, 225, 255, 0.8000)'
+                    },
+                    {
+                      offset: 1,
+                      color: 'rgba(133, 228, 255, 0)'
+                    }
+                  ]
+                },
+                borderRadius: [0, 10, 10, 0]
+              }
             },
             {
               name: `Kind ${this.sku[i][2]}`,
@@ -169,10 +199,27 @@ export default {
               label: {
                 show: true,
                 position: 'right',
-                color: '#C128E5',
+                color: 'rgba(96, 142, 255, 1)',
                 formatter: `${this.sku[i][1]}%`
               },
-              barWidth: '15%',
+              barWidth: '18%',
+              itemStyle: {
+                color: {
+                  type: 'linear',
+                  x: 1, x2: 0, y: 1, y2: 0,
+                  colorStops: [
+                    {
+                      offset: 0,
+                      color: 'rgba(78, 135, 255, 1)'
+                    },
+                    {
+                      offset: 1,
+                      color: 'rgba(125, 156, 255, 0)'
+                    }
+                  ]
+                },
+                borderRadius: [0, 10, 10, 0]
+              }
             },
           ],
           color: ['rgba(78, 225, 255, 0.8000)', 'rgba(78, 135, 255, 1)']
@@ -257,22 +304,29 @@ export default {
     background: url(../../assets/img/order.png) no-repeat;
     background-position: -10px;
     background-size: 80%;
-    // margin-left: px2vw(40px);
-
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column-reverse;
+    justify-content: space-around;
+    margin-left: px2vw(40px);
 
     .text {
-      width: 907px;
-      height: px2vh(150px);
-      font-size: px2vw(45px);
-      color: #4078FF;
-      line-height: px2vh(150px);
-      letter-spacing: 4px;
+      width: px2vw(599px);
+      height: px2vh(52px);
+      font-size: px2vh(46px);
+      // font-family: HYZhuZiChaoRanTiW;
+      color: #18e9fcc8;
+      line-height: px2vh(52px);
+      letter-spacing: px2vw(7px);
       text-shadow: 0px 2px 8px #0037BD;
-      background: linear-gradient(360deg, #CFF0FD 0%, #FFFFFF 100%);
+      background: linear-gradient(360deg, #AAE7FF 0%, #FFFFFF 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      margin-left: px2vw(86px);
+      margin-left: px2vw(100px);
     }
+
+
+
   }
 
   .num {
@@ -293,6 +347,8 @@ export default {
 
 
 .content {
+  width: px2vw(3915px);
+  height: px2vh(342px);
   color: #fff;
   font-size: px2vw(26px);
   font-weight: 600;
@@ -303,46 +359,46 @@ export default {
   &-item {
     width: px2vw(750px);
     height: px2vh(350px);
-    background: url(../../assets/img/stock-title.png) no-repeat;
+    background: url(../../assets/data/stock/item.png) no-repeat;
     background-position: 0 0px;
     background-size: 100%;
 
     .item-title {
       width: px2vw(810px);
       height: px2vh(80px);
-      
       .title-text {
-        display: inline-block;
-        font-size: px2vw(40px);
-        color: #FFFFFF;
+        // display: inline-block;
+        font-size: px2vw(45px);
+        font-weight: 600;
+        color: rgba(185, 250, 250, 1);
         line-height: px2vw(80px);
         letter-spacing: 5px;
-        margin-left: px2vw(5px);
+        margin-left: px2vw(30px);
       }
 
     }
 
     .charts {
       width: px2vw(750px);
-      height: px2vh(250px);
+      height: px2vh(260px);
     }
 
     span {
-      font-size: px2vw(25px);
-      padding-left: px2vw(10px);
+      font-size: px2vh(32px);
+      padding-left: px2vw(30px);
     }
   }
 }
 
 .per-red {
-  color: #FF1600;
+  color: rgba(255, 131, 20, 1);
 }
 
 .per-yellow {
-  color: yellow;
+  color: rgba(215, 204, 47, 1);
 }
 
 .per-green {
-  color: #00C430;
+  color: rgba(116, 232, 62, 1);
 }
 </style>

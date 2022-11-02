@@ -43,16 +43,20 @@ export default {
   },
   methods: {
     get() {
-      this.$axios.post('request/volume').then((res) => {
-        this.data = res.data.data
+      try {
+        this.$axios.post('request/volume').then((res) => {
+          this.data = res.data.data
 
-        this.drawCharts()
-        window.onresize = () => {
           this.drawCharts()
-        }
-      }).catch((err) => {
-        console.log('请求失败' + err.message);
-      })
+          window.onresize = () => {
+            this.drawCharts()
+          }
+        }).catch((err) => {
+          console.log('请求失败' + err.message);
+        })
+      } catch (error) {
+        console.log(error);
+      }
     },
 
     drawCharts() {
@@ -98,7 +102,7 @@ export default {
           axisLabel: {
             show: true,
             textStyle: {
-              color: "#fff", 
+              color: "#fff",
               // fontSize: 14
             },
             // interval: 'auto',
@@ -110,7 +114,8 @@ export default {
           splitLine: {
             show: true,
             lineStyle: {
-              color: 'rgba(256,256,256,0.3)',
+              color: 'rgba(64, 120, 255, 0.5000)',
+              type: 'dashed'
             }
           },
           axisLabel: {
@@ -124,12 +129,46 @@ export default {
           {
             name: '入库',
             type: 'bar',
-            data: volume1
+            data: volume1,
+            itemStyle: {
+              color: {
+                type: 'linear',
+                x: 0, x2: 1, y: 0, y2: 1,
+                colorStops: [
+                  {
+                    offset: 0,
+                    color: '#3072FF'
+                  },
+                  {
+                    offset: 1,
+                    color: ' rgba(81,122,255,0.4)'
+                  }
+                ]
+              },
+              borderRadius: [5, 5, 0, 0]
+            }
           },
           {
             name: '出库',
             type: 'bar',
-            data: volume
+            data: volume,
+            itemStyle: {
+              color: {
+                type: 'linear',
+                x: 0, x2: 1, y: 0, y2: 1,
+                colorStops: [
+                  {
+                    offset: 0,
+                    color: 'rgba(121,231,255,1)'
+                  },
+                  {
+                    offset: 1,
+                    color: 'rgba(133,228,255,0.4)'
+                  }
+                ]
+              },
+              borderRadius: [5, 5, 0, 0]
+            }
           },
 
         ],
@@ -151,7 +190,10 @@ export default {
 @import '@/assets/function.scss';
 
 .volume {
-  background: url(../../assets/img/volume.png) rgba($color: blue, $alpha: 0.05);
+  background: url(../../assets/data/volume/bg.png) no-repeat;
+  background-size: px2vw(1938px) px2vh(704px);
+  width: px2vw(1938px);
+  height: px2vh(704px);
 
   .banner {
     width: px2vw(1938px);
@@ -166,28 +208,35 @@ export default {
       background: url(../../assets/img/order.png) no-repeat;
       background-position: -10px;
       background-size: 80%;
-      // margin-left: px2vw(40px);
+      display: flex;
+      align-items: flex-start;
+      flex-direction: column-reverse;
+      justify-content: space-around;
+      margin-left: px2vw(40px);
 
       .text {
-        width: 907px;
-        height: px2vh(150px);
-        font-size: px2vw(45px);
-        color: #4078FF;
-        line-height: px2vh(150px);
-        letter-spacing: 4px;
+        width: px2vw(599px);
+        height: px2vh(52px);
+        font-size: px2vh(46px);
+        // font-family: HYZhuZiChaoRanTiW;
+        color: #18E8FC;
+        line-height: px2vh(52px);
+        letter-spacing: px2vw(7px);
         text-shadow: 0px 2px 8px #0037BD;
-        background: linear-gradient(360deg, #CFF0FD 0%, #FFFFFF 100%);
+        background: linear-gradient(360deg, #AAE7FF 0%, #FFFFFF 100%);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
-        margin-left: px2vw(86px);
-
+        margin-left: px2vw(100px);
       }
+
+
+
     }
   }
 
   .content {
     width: px2vw(1900px);
-    height: px2vh(523px);
+    height: px2vh(553px);
   }
 }
 </style>

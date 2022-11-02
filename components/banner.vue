@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="header">
-      <img src="../assets/img/banner.png" alt="">
+      <img src="../assets/tit.png" alt="">
     </div>
     
   </div>
@@ -28,7 +28,7 @@ export default {
 
 .header {
   width: 100%;
-  height: px2vh(137px);
+  height: px2vh(217px);
 
   img {
     width: 100%;

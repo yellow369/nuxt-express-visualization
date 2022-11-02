@@ -72,11 +72,10 @@ export default {
 @import '@/assets/function.scss';
 
 .security {
-  background: url(../../assets/img/security.png) no-repeat;
-  background-size: 100%;
-  width: px2vw(500px);
-  height: px2vh(500px);
-  margin: 0 auto;
+  background: url(../../assets/index/security/bg.png) no-repeat;
+  background-size: px2vw(691px) px2vh(658px);
+  width: px2vw(691px);
+  height: px2vh(658px);
 }
 
 
@@ -104,16 +103,16 @@ export default {
 }
 
 .content {
-  width: px2vw(400px);
-  height: px2vh(40px);
+  width: px2vw(270px);
+  height: px2vh(80px);
   // background-color: rgba(255, 255, 255, 0.29);
   text-align: center;
   margin: 0 auto;
   // color: rgba(255, 255, 255, 0.733);
   color: #fff;
-  font-size: px2vw(30px);
+  font-size: px2vw(39px);
   font-weight: 500;
   line-height: px2vh(40px);
-  margin-top: px2vh(50px);
+  margin-top: px2vh(150px);
 }
 </style>

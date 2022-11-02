@@ -2,14 +2,12 @@
   <div class="video">
     <div class="banner">
       <div class="title">
-        <div class="text">安全生产视频</div>
+        <!-- <div class="text">安全生产视频</div> -->
       </div>
     </div>
-    <dv-border-box-12 class="content">
-      <div class="border">
-        <video src="/api/video" autoplay loop muted></video>
-      </div>
-    </dv-border-box-12>
+    <div class="content">
+      <video src="/api/video" autoplay loop muted></video>
+    </div>
   </div>
 </template>
 
@@ -54,28 +52,26 @@ export default {
 @import '@/assets/function.scss';
 
 .video {
-  width: px2vw(800px);
-  height: px2vh(500px);
+  width: px2vw(892px);
+  height: px2vh(555px);
+  background: url(../../assets/index/video/bg.png);
+  background-size: px2vw(892px) px2vh(555px);
 
   .banner {
-    width: px2vw(380px);
-    height: px2vh(70px);
-    border: px2vw(3px) solid rgba(81, 139, 195, 0.9);
-    padding: px2vw(4px);
-    margin: 0 auto;
+    width: px2vw(320px);
+    height: px2vh(96px);
+
 
     .title {
-      background-color: rgba(81, 139, 195, 0.9);
-      height: px2vh(57px);
+      height: px2vh(66px);
       width: px2vw(366px);
-      font-size: px2vw(36px);
-      text-align: center;
-      line-height: px2vh(57px);
+      font-size: px2vw(56px);
+      line-height: px2vh(140px);
       font-weight: 600;
       color: rgba(255, 255, 255, 0.751);
+      text-shadow: 0px 2px 25px #0083F0;
+      margin-left: px2vw(40px);
     }
-
-
   }
 
   // .title {
@@ -91,23 +87,17 @@ export default {
   // }
 
   .content {
-    width: px2vw(800px);
-    height: px2vh(500px);
-    margin-top: px2vh(20px);
-    padding: px2vh(22px);
+    width: px2vw(850px);
+    height: px2vh(400px);
     overflow: hidden;
+    margin: 0 auto;
+    margin-top: px2vh(30px);
+    // background-color: #fff;
+    border-radius: 10px;
 
-    .border {
-      height: 98%;
-      width: 100%;
-      border-radius: 10px;
-      overflow: hidden;
-      // background-color: #fff;
-
-      video {
-        height: 100%;
-        width: 100%;
-      }
+    video {
+      width: px2vw(880px);
+      height: px2vh(400px);
     }
 
   }

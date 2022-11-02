@@ -1,9 +1,9 @@
 <template>
   <div class="board">
     <Banner></Banner>
-    <Security></Security>
     <div class="content">
       <Check></Check>
+      <Security></Security>
       <Report></Report>
       <Video></Video>
     </div>
@@ -14,9 +14,7 @@
           <div class="text">阀门:</div>
         </div>
       </div>
-      <img src="../../assets/img/three.png" alt="">
-      <!-- <img src="../../assets/img/three.png" alt="" class="img3"> -->
-      <!-- <img src="../../assets/img/three1.png" alt="" class="img1"> -->
+      <img src="../../assets/img/three2.png" alt="">
     </div>
   </div>
 </template>
@@ -27,7 +25,7 @@ import Security from '@/components/board/security.vue'
 import Check from '@/components/board/check.vue'
 import Report from '@/components/board/report.vue'
 import Video from '@/components/board/video.vue'
-import Time from '@/components/time.vue'
+import Time from '@/components/time1.vue'
 
 export default {
   async asyncData(context) {
@@ -79,28 +77,15 @@ export default {
 .board {
   min-height: 100vh;
   min-width: 100vh;
-  background-color: rgb(19, 34, 53);
+  background: url(../../assets/data/bg.png) no-repeat;
+  background-size: px2vw(4096px) px2vh(2160px);
 }
 
 .content {
-  margin-top: px2vh(-50px);
+  margin-top: px2vh(10px);
   display: flex;
   align-items: center;
   justify-content: space-around;
-}
-
-.check {
-  margin-top: px2vh(-100px);
-  // margin-left: px2vw(100px);
-}
-
-.report {
-  margin-left: px2vw(300px);
-}
-
-.video {
-  margin-left: px2vw(80px);
-  margin-top: px2vh(-160px);
 }
 
 .time {
@@ -111,32 +96,34 @@ export default {
 
 .three {
   width: px2vw(3500px);
-  height: px2vh(800px);
+  height: px2vh(1200px);
   margin: 0 auto;
-  margin-top: px2vh(100px);
+  margin-top: px2vh(20px);
   text-align: center;
-  overflow: hidden;
 
   .banner {
-    width: px2vw(180px);
+    width: px2vw(300px);
     height: px2vh(70px);
-    border: px2vw(3px) solid rgba(81, 139, 195, 0.9);
     padding: px2vw(4px);
+    margin-top: px2vw(100px);
 
     .title {
-      background-color: rgba(81, 139, 195, 0.9);
-      height: px2vh(57px);
-      width: px2vw(166px);
-      font-size: px2vw(36px);
-      text-align: center;
-      line-height: px2vh(57px);
-      font-weight: 600;
-      color: rgba(255, 255, 255, 0.751);
+      font-size: px2vh(46px);
+      color: #18E8FC;
+      line-height: px2vh(52px);
+      letter-spacing: px2vw(7px);
+      text-shadow: 0px 2px 8px #0037BD;
+      background: linear-gradient(360deg, #AAE7FF 0%, #FFFFFF 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-weight: 700;
     }
   }
 
   img {
-    height: 90%;
+    height: px2vh(1100px);
+    margin-top: px2vh(-150px);
+    margin-left: px2vw(50px);
     // transition: all 1s;
   }
 }

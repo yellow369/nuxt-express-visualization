@@ -6,7 +6,7 @@
           <img src="../assets/fullscreen.svg" alt="" @click="fullScreen" v-if="!full">
           <img src="../assets/reduce.svg" alt="" @click="fullScreen" v-if="full">
           <img src="../assets/nav.svg" @click="shownav">
-          <div v-if="nav">
+          <div v-if="nav" @click="shownav">
             <nuxt-link to="/">首页</nuxt-link>
             <nuxt-link to="/upload">上传</nuxt-link>
             <nuxt-link to="/board">安全看板</nuxt-link>
@@ -15,9 +15,7 @@
         </div>
         <Nuxt />
       </dv-full-screen-container>
-
     </client-only>
-
   </div>
 </template>
 <script>
@@ -119,7 +117,7 @@ html {
   display: flex;
 
   img {
-    width: 8%;
+    width: 7%;
     margin-bottom: 5px;
     vertical-align: middle;
   }
