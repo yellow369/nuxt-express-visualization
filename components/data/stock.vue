@@ -189,7 +189,7 @@ export default {
                     }
                   ]
                 },
-                borderRadius: [0, 10, 10, 0]
+                borderRadius: [0, colWidth(0.5), colWidth(0.5), 0]
               }
             },
             {
@@ -218,7 +218,7 @@ export default {
                     }
                   ]
                 },
-                borderRadius: [0, 10, 10, 0]
+                borderRadius: [0, colWidth(0.5), colWidth(0.5), 0]
               }
             },
           ],
@@ -286,8 +286,8 @@ export default {
 
 
 .stock {
-  background: url(../../assets/img/volume.png) rgba($color: blue, $alpha: 0.04) no-repeat;
-  background-size: 100%;
+  background: url(../../assets/data//stock/bg.png) no-repeat;
+  background-size: px2vw(3915px) px2vh(542px);
 }
 
 .banner {
