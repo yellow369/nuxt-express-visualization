@@ -1,14 +1,16 @@
 <template>
-  <div class="board">
+  <div class="data">
     <Time></Time>
     <Banner></Banner>
     <div class="content">
-      <div class="second">
+      <div class="content-l">
         <Order></Order>
-        <Volume></Volume>
+        <Infor></Infor>
       </div>
-      <Stock></Stock>
-      <Infor></Infor>
+      <div class="content-r">
+        <Volume></Volume>
+        <Stock></Stock>
+      </div>
     </div>
   </div>
 </template>
@@ -18,7 +20,7 @@ import Time from '@/components/time1.vue'
 import Banner from '@/components/banner.vue'
 import Volume from '@/components/data/volume.vue'
 import Order from '@/components/data/order.vue'
-import Stock from '@/components/data/stock.vue'
+import Stock from '@/components/data/stock_re.vue'
 import Infor from '@/components/data/infor.vue'
 
 export default {
@@ -49,34 +51,34 @@ export default {
 <style scoped lang="scss">
 @import '../../assets/function.scss';
 
-.board {
+.data {
   min-height: 100vh;
   min-width: 100vh;
   // background-color: #000;
-  background: url(../../assets/data/bg.png) no-repeat;
+  background: url(../../assets/3d-bg.png) no-repeat;
   background-size: px2vw(4096px) px2vh(2160px);
+  position: relative;
 }
 
 .content {
-  padding: px2vh(0px) px2vh(86px);
-}
-
-.time {
-  position: fixed;
-  right: px2vw(80px);
-  top: px2vh(50px);
-}
-
-.second {
   display: flex;
-  justify-content: space-between
-}
+  width: 100%;
 
-.stock {
-  margin-top: px2vh(40px);
-}
+  .content-l {
+    margin-left: px2vw(87px);
+    margin-right: px2vw(36px);
 
-.infor {
-  margin-top: px2vh(40px);
+    .infor {
+      margin-top: px2vh(32px);
+
+    }
+  }
+
+  .content-r {
+    .stock {
+      margin-top: px2vh(32px);
+
+    }
+  }
 }
 </style>

@@ -2,9 +2,16 @@
   <div class="volume">
     <div class="banner">
       <div class="title">
-        <div class="text">原料包材出入库体积(m³)</div>
+        <div class="text">原料包材出入库体积(m³) <br /><span>Raw Materials Package Materials Receiving Data</span></div>
       </div>
-
+      <div class="legend">
+        <div style="display: inline-block;margin-right: 10px;">
+          <div class="dot-in"></div><span style="color: rgba(251, 27, 190, 1)">&nbsp;入库</span>
+        </div>
+        <div style="display: inline-block">
+          <div class="dot-out"></div><span style="color: rgba(139, 255, 193, 1)">&nbsp;出库</span>
+        </div>
+      </div>
     </div>
     <div class="content" id="main">
 
@@ -79,16 +86,16 @@ export default {
       let myCharts = echarts.init(document.getElementById('main'));
       myCharts.setOption({
         tooltip: {},
-        legend: {
-          // Try 'horizontal'
-          orient: 'horizontal',
-          top: 0,
-          right: 0,
-          textStyle: {
-            color: '#fff'
-            // ...
-          }
-        },
+        // legend: {
+        //   // Try 'horizontal'
+        //   orient: 'horizontal',
+        //   top: 0,
+        //   right: 0,
+        //   textStyle: {
+        //     color: '#fff'
+        //     // ...
+        //   }
+        // },
         grid: {
           left: '3%',
           right: '2%',
@@ -137,11 +144,11 @@ export default {
                 colorStops: [
                   {
                     offset: 0,
-                    color: '#3072FF'
+                    color: 'rgba(251, 27, 190, 1)'
                   },
                   {
                     offset: 1,
-                    color: ' rgba(81,122,255,0.4)'
+                    color: ' rgba(255, 81, 128, 0.4)'
                   }
                 ]
               },
@@ -159,11 +166,11 @@ export default {
                 colorStops: [
                   {
                     offset: 0,
-                    color: 'rgba(121,231,255,1)'
+                    color: 'rgba(139, 255, 193, 1)'
                   },
                   {
                     offset: 1,
-                    color: 'rgba(133,228,255,0.4)'
+                    color: 'rgba(133, 230, 255, 0.4)'
                   }
                 ]
               },
@@ -190,10 +197,10 @@ export default {
 @import '@/assets/function.scss';
 
 .volume {
-  background: url(../../assets/data/volume/bg.png) no-repeat;
-  background-size: px2vw(1938px) px2vh(704px);
+  background: url(../../assets/data/volume/bg1.png) no-repeat;
+  background-size: px2vw(1938px) px2vh(680px);
   width: px2vw(1938px);
-  height: px2vh(704px);
+  height: px2vh(680px);
 
   .banner {
     width: px2vw(1938px);
@@ -202,12 +209,15 @@ export default {
     justify-content: space-between;
 
     .title {
-      width: px2vw(800px);
-      height: px2vh(150px);
-      color: #fff;
-      background: url(../../assets/img/order.png) no-repeat;
-      background-position: -10px;
-      background-size: 80%;
+      width: px2vw(1200px);
+      height: px2vh(100px);
+      // background: url(../../assets/img/order.png) no-repeat;
+      // background-position: -10px;
+      // background-size: 80%;
+      font-size: px2vh(45px);
+      line-height: px2vh(40px);
+      font-weight: 600;
+      color: rgba(255, 255, 255, 0.9);
       display: flex;
       align-items: flex-start;
       flex-direction: column-reverse;
@@ -215,28 +225,48 @@ export default {
       margin-left: px2vw(40px);
 
       .text {
-        width: px2vw(599px);
-        height: px2vh(52px);
-        font-size: px2vh(46px);
+        width: px2vw(1000px);
+        height: px2vh(60px);
+        font-size: px2vh(44px);
         // font-family: HYZhuZiChaoRanTiW;
-        color: #18E8FC;
-        line-height: px2vh(52px);
-        letter-spacing: px2vw(7px);
+        color: rgba(255, 255, 255, 0.9);
+        line-height: px2vh(44px);
+
         text-shadow: 0px 2px 8px #0037BD;
-        background: linear-gradient(360deg, #AAE7FF 0%, #FFFFFF 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        margin-left: px2vw(100px);
+        // background: linear-gradient(360deg, #AAE7FF 0%, #FFFFFF 100%);
+        // -webkit-background-clip: text;
+        // -webkit-text-fill-color: transparent;
+        margin-left: px2vw(50px);
+
+        span {
+          font-size: px2vw(30px);
+        }
       }
-
-
-
     }
+
+    .legend {
+      margin-top: px2vh(40px);
+      margin-right: px2vw(50px);
+      .dot-in {
+        width: px2vw(40px);
+        height: px2vh(20px);
+        display: inline-block;
+        background-image: linear-gradient(to right, rgba(251, 27, 190, 1), rgba(255, 81, 128, 0.2));
+        
+      }
+      .dot-out {
+        width: px2vw(40px);
+        height: px2vh(20px);
+        display: inline-block;
+        background-image: linear-gradient(to right, rgba(139, 255, 193, 1), rgba(133, 230, 255, 0.2));
+      }
+    }
+
   }
 
   .content {
     width: px2vw(1900px);
-    height: px2vh(553px);
+    height: px2vh(523px);
   }
 }
 </style>

@@ -115,6 +115,7 @@ html {
   top: 20px;
   line-height: 60px;
   display: flex;
+  z-index: 999;
 
   img {
     width: 7%;

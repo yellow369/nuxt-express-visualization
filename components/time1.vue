@@ -1,8 +1,10 @@
 <template>
   <div class="time1">
-    <div class="year"><span>{{ year }}</span></div>
+    <div class="year"><span>{{ year }}&nbsp; </span></div>
     <div class="year" style="display: flex;justify-content: center;align-items: center"><span>{{ weekly
-    }}</span>&nbsp;<span>{{ time }}</span></div>
+    }}&nbsp; 
+    {{ weekly_en.toLocaleUpperCase() }}</span>&nbsp;
+    <span>{{ time }}</span></div>
   </div>
 </template>
 
@@ -15,7 +17,9 @@ export default {
 
     return {
       year: '',
+      year_en: '',
       weekly: '',
+      weekly_en: '',
       time: ''
     }
   },
@@ -34,7 +38,9 @@ export default {
       let second = date.getSeconds();
       second = second < 10 ? '0' + second : second;//时间补0  
       this.year = date.getFullYear() + '年' + (date.getMonth() + 1) + '月' + date.getDate() + '日'
+      this.year_en = (date.getMonth() + 1) + '/' + date.getDate() + '/' + date.getFullYear()
       this.weekly = week(moment().format('dddd'))
+      this.weekly_en = moment().format('ddd')
       this.time = hour + ':' + minute + ':' + second
     }
   },
@@ -58,18 +64,18 @@ export default {
 
 .time1 {
   position: fixed;
-  right: px2vw(340px);
-  top: px2vh(86px);
-  width: px2vw(320px);
+  right: px2vw(320px);
+  top: px2vh(90px);
+  width: px2vw(380px);
   height: px2vh(74px);
   text-align: center;
-  letter-spacing: px2vw(2px);
+  z-index: 9;
+  // letter-spacing: px2vw(2px);
 
   .year {
-    line-height: px2vh(44px);
-    font-size: px2vh(38px);
+    line-height: px2vh(35px);
+    font-size: px2vw(28px);
     font-family: 54--Regular;
-    font-weight: 500;
     color: #CFF1FF;
   }
 }

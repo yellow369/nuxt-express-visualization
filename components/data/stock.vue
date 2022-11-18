@@ -25,7 +25,7 @@
           </div>
           <span>可用拍位：{{ total[index][2] }}</span>
           <span>拍位利用率：<a :class="colors(Number(sku[index][3]) + Number(sku[index][1]))">{{ (Number(sku[index][3]) +
-              Number(sku[index][1])).toFixed(1)
+          Number(sku[index][1])).toFixed(1)
           }}%</a></span>
         </div>
         <div class="charts">
@@ -130,7 +130,7 @@ export default {
             bottom: '0%',
             left: 'center',
             textStyle: {
-              color: '#ccc'
+              color: '#fff'
             },
             itemWidth: 10,
             itemHeight: 10, 
@@ -313,7 +313,7 @@ export default {
     .text {
       width: px2vw(599px);
       height: px2vh(52px);
-      font-size: px2vh(46px);
+      font-size: px2vh(44px);
       // font-family: HYZhuZiChaoRanTiW;
       color: #18e9fcc8;
       line-height: px2vh(52px);
@@ -366,9 +366,10 @@ export default {
     .item-title {
       width: px2vw(810px);
       height: px2vh(80px);
+
       .title-text {
         // display: inline-block;
-        font-size: px2vw(45px);
+        font-size: px2vh(45px);
         font-weight: 600;
         color: rgba(185, 250, 250, 1);
         line-height: px2vw(80px);

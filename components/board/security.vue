@@ -6,7 +6,7 @@
       </div>
     </div>
     <div class="content">
-      <p>2022年已连续安全生产</p>
+      <p>{{ year }}年已连续安全生产天数</p>
     </div>
   </div>
 </template>
@@ -19,7 +19,7 @@ export default {
   },
   data() {
 
-    return { date: [], }
+    return { date: [], year: '' }
 
   },
   head() {
@@ -39,8 +39,15 @@ export default {
       this.$axios.post('xlsx/security').then((res) => {
         this.date = res.data[0].data
         let now = new Date()
-        let day = Math.floor((now.getTime() - this.formartDateTime(this.date[1][1])) / 3600 / 24 / 1000)
-        this.date = this.converToArray(day)
+        this.year = now.getFullYear()
+        // console.log(this.date[1][1].includes(this.year));
+        if (this.date[1][1].includes(this.year)) {
+          let day = Math.floor((now.getTime() - this.formartDateTime(this.date[1][1])) / 3600 / 24 / 1000)
+          this.date = this.converToArray(day)
+        } else {
+          let day = Math.floor((now.getTime() - this.formartDateTime(`${this.year}.01.01`)) / 3600 / 24 / 1000)
+          this.date = this.converToArray(day)
+        }
       }).catch((err) => {
         console.log('请求失败' + err.message);
       })
@@ -95,6 +102,7 @@ export default {
     border: 1px solid;
     // border-image: linear-gradient(180deg, rgba(167, 231, 255, 0.18), rgba(208, 238, 255, 1)) 1 1;
     margin: 0 px2vw(3px);
+
     .text {
       width: px2vw(80px);
       height: px2vh(130px);

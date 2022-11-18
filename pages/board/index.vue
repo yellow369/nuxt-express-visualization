@@ -35,30 +35,12 @@ export default {
       title: "数据看板"
     };
   },
-  components: { Banner, Security, Check, Report, Video, Time,Three },
+  components: { Banner, Security, Check, Report, Video, Time, Three },
   methods: {
-
 
   },
   mounted() {
-    // this.times = setInterval(() => {
-    //   let img = document.querySelector('.img3')
-    //   let img1 = document.querySelector('.img1')
-    //   if (!this.swiper) {
-    //     img.classList.add('imgremove')
-    //     img1.classList.add('imgremove')
-    //     this.swiper = !this.swiper
-    //   } else {
-    //     img.classList.remove('imgremove')
-    //     img1.classList.remove('imgremove')
-    //     this.swiper = !this.swiper
-    //   }
-    // }, 10000)
 
-    // this.$once('hook:beforeDestroy', () => {
-    //   clearInterval(this.times);
-    //   this.times = null;
-    // })
   }
 }
 </script>
@@ -67,17 +49,19 @@ export default {
 @import '../../assets/function.scss';
 
 .board {
-  min-height: 100vh;
-  min-width: 100vh;
-  background: url(../../assets/data/bg.png) no-repeat;
+  height: px2vh(2160px);
+  width: px2vw(4096px);
+  background: url(../../assets/3d-bg.png) no-repeat;
   background-size: px2vw(4096px) px2vh(2160px);
+  position: relative;
 }
 
 .content {
-  margin-top: px2vh(10px);
+  margin-top: px2vh(-60px);
   display: flex;
   align-items: center;
   justify-content: space-around;
+  align-items: flex-end;
 }
 
 .time {

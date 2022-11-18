@@ -3,8 +3,10 @@
     <div class="fm">
       <div class="banner">
         <div class="title">
-          <div class="text" style="text-align: left; margin-left: 6%;">FM消防检查</div>
+          <div class="text" style="text-align: left; margin-left: 6%;">FM消防检查 <br /><span>FM Firefighting Inspect</span>
+          </div>
         </div>
+        <img src="../../assets/index/check/logo.png" alt="">
       </div>
       <div class="content">
         <div v-for="(item, index) in record" :key="index" class="item">
@@ -18,8 +20,9 @@
     </div>
     <div class="mouse">
       <div class="banner">
+        <img src="../../assets/index/check/logo1.png" alt="" class="logo1">
         <div class="title">
-          <div class="text">虫鼠害检查</div>
+          <div class="text">虫鼠害检查 <br /><span>Pest Control Inspect</span></div>
         </div>
       </div>
       <div class="content-mouse">
@@ -77,7 +80,7 @@ export default {
         if (this.par[0].indexOf('当前日期') !== -1) {
           this.par.shift()
         }
-        console.log(this.par);
+        // console.log(this.par);
         this.par.map((items) => {
           if (items[1] == 'FM消防检查') {
             items[3].slice(5)
@@ -115,6 +118,37 @@ export default {
   margin-left: px2vw(40px);
   background: url(../../assets/index/check/mousebg.png) no-repeat;
   background-size: px2vw(420px) px2vh(557px);
+
+  .banner {
+    width: px2vw(520px);
+    height: px2vh(96px);
+    display: flex;
+    padding-left: px2vw(10px);
+
+    .title {
+      height: px2vh(66px);
+      width: px2vw(300px);
+      font-size: px2vh(45px);
+      line-height: px2vh(40px);
+      font-weight: 600;
+      color: rgba(255, 255, 255, 0.9);
+      // text-shadow: 0px 2px 25px #0083F0;
+      padding-top: px2vh(10px);
+      text-align: right;
+      padding-right: px2vw(20px);
+
+      span {
+        font-size: px2vw(30px);
+      }
+    }
+
+    .logo1 {
+      width: px2vw(119px);
+      height: px2vh(51px);
+      margin-top: px2vh(40px);
+    }
+
+  }
 
 
   .content-mouse {
@@ -155,19 +189,36 @@ export default {
 }
 
 .banner {
-  width: px2vw(320px);
+  width: px2vw(620px);
   height: px2vh(96px);
-
+  display: flex;
 
   .title {
     height: px2vh(66px);
     width: px2vw(400px);
-    font-size: px2vw(50px);
-    line-height: px2vh(140px);
+    font-size: px2vh(45px);
+    line-height: px2vh(40px);
     font-weight: 600;
     color: rgba(255, 255, 255, 0.9);
-      text-shadow: 0px 2px 25px #0083F0;
-    text-align: right;
+    // text-shadow: 0px 2px 25px #0083F0;
+    padding-top: px2vh(10px);
+    text-align: center;
+
+    span {
+      font-size: px2vw(30px);
+    }
+  }
+
+  .logo1 {
+    width: px2vw(119px);
+    height: px2vh(51px);
+    margin-top: px2vh(18px);
+  }
+
+  img {
+    width: px2vw(116px);
+    height: px2vh(83px);
+    margin-top: px2vh(8px);
   }
 }
 

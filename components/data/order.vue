@@ -2,26 +2,33 @@
   <div class="order">
     <div class="banner">
       <div class="title">
-        <div class="text">原材料预约信息</div>
+        <div class="text">原材料预约信息 <br /><span>Raw Materials Booking Data</span> <span>&nbsp;&nbsp;&nbsp;&nbsp; 到货日期：{{
+            day
+        }}</span></div>
 
       </div>
       <div class="day">
-        <p> 到货日期：{{ day }}</p>
+
+      </div>
+      <div class="num-total">
+        <span>未完成 &nbsp; <span style="color: #FF8314">{{ complete }}</span></span>
+        <span>已完成 &nbsp; <span style="color: #1BF82A">{{ uncomplete }}</span></span>
       </div>
       <div class="count">
         <div class="line-top"></div>
         <div class="num">
-          <div style="width: 50%;text-align: center;">
+          <!-- <div style="width: 50%;text-align: center;">
             <div class="total">{{ config1 }}</div>
             <p>预约总数量(kg)</p>
           </div>
-          <div class="line"></div>
-          <div style="width: 48%;">
-            <div class="total" style="color: #12B8E9">{{ config2 }}</div>
+          <div class="line"></div> -->
+          <div style="width: 98%;">
+            <div class="total" style="color: #12B8E9">{{ config1 }}</div>
             <p>预约总拍数</p>
           </div>
         </div>
       </div>
+
     </div>
     <!-- <div class="count">
       <dv-digital-flop :config="config1" class="flop" />
@@ -51,7 +58,10 @@ export default {
       config1: null,
       config2: null,
       times: null,
-      day: ''
+      day: '',
+      complete: 0,
+      uncomplete: 0,
+
     }
   },
   head() {
@@ -74,13 +84,16 @@ export default {
     //修改表格数据
     change(e) {
       e.map((item, index) => {
-        if (item.indexOf('已完成') !== -1) {
-          e[index][e[index].indexOf('已完成')] = '<div ><span style="color: #00C430;font-weight: 600;font-size: 1vh;padding-right: 2px">●</span>已完成</div>'
-        } else if (item.indexOf('未完成') !== -1) {
-          e[index][e[index].indexOf('未完成')] = '<div ><span style="color: #FF1600;font-weight: 600;font-size: 1vh;padding-right: 2px">●</span>未完成</div>'
+        if (item[7] == '已完成') {
+          this.complete++
+          e[index][7] = `<div style="width: 100%;text-align: left;margin-left: 10%""><span style="color: #1BF82A;font-weight: 700;font-size: 2vh;padding-right: 5px">●</span>${e[index][7]}</div>`
+        } else {
+          this.uncomplete++
+          e[index][7] = `<div style="width: 100%;text-align: left;margin-left: 10%"><span style="color: #FF8314;font-weight: 700;font-size: 2vh;padding-right: 5px">●</span>${e[index][7]}</div>`
         }
       })
     },
+
     get() {
       let date = new Date()
       this.day = date.getFullYear() + '.' + (date.getMonth() + 1) + '.' + date.getDate()
@@ -95,7 +108,8 @@ export default {
           // header = res.data[0].data[0]
           form.shift()
         }
-        this.change(form)
+        this.complete = 0
+        this.uncomplete = 0
 
         let formData = []
         for (let i = 0; i < form.length; i++) {
@@ -106,6 +120,7 @@ export default {
         }
         // header.shift()
         // console.log(formData);
+        this.change(formData)
 
         let sty = []
         data[0].map((item) => sty.push('center'))
@@ -118,13 +133,13 @@ export default {
         })
 
         this.config = {
-          header: ['类型', '供应商', '物料号', '物料名称', '托含量', '预约数量(kg)', '预约拍数'],
+          header: ['类型', '供应商', '物料号', '物料名称', '托含量', '预约拍数', '状态'],
           data: formData,
           align: sty,
           hoverPause: false,
           headerBGC: '#1A3FE02E',
-          waitTime: '4000',
-          columnWidth: [colWidth(0.06), colWidth(0.06), colWidth(0.09), colWidth(0.1), colWidth(0.06), colWidth(0.06), colWidth(0.06)],
+          waitTime: '3000',
+          columnWidth: [colWidth(0.06), colWidth(0.06), colWidth(0.09), colWidth(0.10), colWidth(0.06), colWidth(0.06), colWidth(0.06)],
         }
         this.config1 = num1
         this.config2 = num2
@@ -143,26 +158,29 @@ export default {
 @import '@/assets/function.scss';
 
 .order {
-  background: url(../../assets/data/order/bg.png) no-repeat;
-  background-size: px2vw(1938px) px2vh(704px);
+  background: url(../../assets/data/order/bg1.png) no-repeat;
+  background-size: px2vw(1938px) px2vh(680px);
   width: px2vw(1938px);
-  height: px2vh(704px);
+  height: px2vh(680px);
 }
 
 .banner {
   width: px2vw(1938px);
-  height: px2vw(150px);
+  height: px2vh(150px);
   // background: url(../../assets/img/order-banner.png);
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
 
   .title {
-    width: px2vw(800px);
-    height: px2vh(150px);
-    color: #fff;
-    background: url(../../assets/img/order.png) no-repeat;
-    background-position: -10px;
-    background-size: 80%;
+    width: 45%;
+    height: px2vh(100px);
+    // background: url(../../assets/img/order.png) no-repeat;
+    // background-position: -10px;
+    // background-size: 80%;
+    font-size: px2vh(40px);
+    line-height: px2vh(30px);
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.9);
     display: flex;
     align-items: flex-start;
     flex-direction: column-reverse;
@@ -170,31 +188,34 @@ export default {
     margin-left: px2vw(40px);
 
     .text {
-      width: px2vw(599px);
-      height: px2vh(52px);
-      font-size: px2vh(46px);
+      width: 100%;
+      height: px2vh(60px);
+      font-size: px2vh(44px);
       // font-family: HYZhuZiChaoRanTiW;
-      color: #18E8FC;
-      line-height: px2vh(52px);
-      letter-spacing: px2vw(7px);
+      color: rgba(255, 255, 255, 0.9);
+      line-height: px2vh(44px);
+
       text-shadow: 0px 2px 8px #0037BD;
-      background: linear-gradient(360deg, #AAE7FF 0%, #FFFFFF 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      margin-left: px2vw(100px);
+      // background: linear-gradient(360deg, #AAE7FF 0%, #FFFFFF 100%);
+      // -webkit-background-clip: text;
+      // -webkit-text-fill-color: transparent;
+      margin-left: px2vw(50px);
+
+      span {
+        font-size: px2vw(30px);
+      }
     }
   }
 
   .day {
-    color: #18E8FC;
+    color: rgba(255, 255, 255, 0.9);
     line-height: px2vh(52px);
-    text-shadow: 0px 2px 8px #0037BD;
-    background: linear-gradient(360deg, #AAE7FF 0%, #FFFFFF 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    // text-shadow: 0px 2px 8px #0037BD;
+    // background: linear-gradient(360deg, #AAE7FF 0%, #FFFFFF 100%);
+    // -webkit-background-clip: text;
+    // -webkit-text-fill-color: transparent;
     height: px2vh(150px);
-    padding-top: px2vh(80px);
-    margin-left: px2vw(-680px);
+    padding-top: px2vh(65px);
 
     p {
       margin: auto 0;
@@ -202,9 +223,35 @@ export default {
     }
   }
 
+  .num-total {
+    color: #fff;
+    display: inline-block;
+    line-height: px2vh(180px);
+    font-size: px2vw(32px);
+
+    span:nth-child(1) {
+      margin-right: px2vw(30px);
+      padding-right: px2vw(10px);
+      background: url(../../assets/img/text-yellow.png) no-repeat;
+      background-size: 100%;
+      background-position: 38px;
+      font-size: px2vw(40px)
+    }
+
+    span:nth-child(2) {
+      margin-right: px2vw(30px);
+      padding-right: px2vw(10px);
+      background: url(../../assets/data/infor/text_green.png) no-repeat;
+      background-size: 100%;
+      background-position: 25px;
+      font-size: px2vw(40px)
+    }
+
+  }
+
   .count {
     height: px2vh(120px);
-    width: px2vw(500px);
+    width: 15%;
     margin-top: 1%;
     margin-right: 1%;
     border-radius: 50px;
@@ -224,7 +271,7 @@ export default {
 
     .num {
       height: px2vh(110px);
-      width: px2vw(500px);
+      width: px2vw(300px);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -240,7 +287,7 @@ export default {
         height: px2vh(35px);
         text-align: center;
         color: #6496f9;
-        font-size: px2vw(45px);
+        font-size: px2vh(45px);
         line-height: px2vh(35px);
         margin-bottom: px2vh(5px);
       }
@@ -252,9 +299,6 @@ export default {
         line-height: px2vh(35px);
       }
     }
-
-
-
   }
 }
 
@@ -267,7 +311,6 @@ export default {
     color: #fff;
     display: inline-block;
     padding-bottom: 10px;
-
   }
 }
 
@@ -280,11 +323,11 @@ export default {
 
   .form::v-deep {
     width: px2vw(1938px);
-    height: px2vh(554px);
+    height: px2vh(520px);
 
     .header {
       // background-color: rgba(26, 63, 224, 0.25) !important;
-      background-color: rgba(256, 256, 256, 0.0) !important;
+      background-color: rgba(256, 256, 256, 0) !important;
       font-size: px2vw(28px);
       color: #C7F9FF !important;
       // height: px2vh(75px);
@@ -292,8 +335,8 @@ export default {
 
     .rows {
       .row-item {
-        background-color: rgba(256, 256, 256, 0.05);
-        background: linear-gradient(90deg, rgba(26, 63, 224, 0.18) 0%, rgba(88, 132, 250, 0.1) 100%) !important;
+        // background-color: #1A316A;
+        background: rgba(256, 256, 256, 0) !important;
         font-size: px2vw(24px);
         // border: px2vh(4px) solid rgba(0, 0, 0, 0.1);
       }

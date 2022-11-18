@@ -24,6 +24,7 @@
       <i class="el-icon-upload"></i>
       <div class="el-upload__text">安全视频文件</div>
     </el-upload>
+    <!-- <video src="/api/video/test" style="width: 500px;height: 500px;background: #ccc" controls></video> -->
   </div>
 </template>
 
@@ -58,6 +59,7 @@ export default {
 
 <style scoped lang="scss">
 @import '@/assets/function.scss';
+
 .container {
   margin: 0 auto;
   min-height: 100vh;
@@ -72,7 +74,7 @@ export default {
 .upload-demo ::v-deep {
   margin: 0 20px;
 
-   .el-upload-dragger  {
+  .el-upload-dragger {
     width: px2vw(300px);
     height: px2vh(300px);
     min-height: 180px;

@@ -15,7 +15,8 @@
     "@nuxtjs/proxy": "^2.1.0",
     "axios": "0.27.0",
     "connect-timeout": "^1.9.0",
-    "echarts": "^5.4.0",
+    "echarts": "5.1.2",
+    "echarts-gl": "2.0.8",
     "element-ui": "^2.15.10",
     "express": "latest",
     "formidable": "^2.0.1",
@@ -26,6 +27,7 @@
     "nuxt": "latest",
     "sass": "^1.55.0",
     "sass-loader": "10.0.0",
+    "vue-seamless-scroll": "^1.1.23",
     "xlsx": "^0.18.5"
   },
   "devDependencies": {
