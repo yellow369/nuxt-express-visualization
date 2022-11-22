@@ -171,18 +171,18 @@ export default {
     change(e) {
       e.map((item, index) => {
         if (item[3] == '已关闭/结算') {
-          e[index][3] = `<div style="width: 100%;text-align: left;margin-left: 10%""><span style="color: #1BF82A;font-weight: 700;font-size: 2vh;padding-right: 5px">●</span>${e[index][3]}</div>`
+          e[index][3] = `<div style="width: 100%;text-align: center""><span style="color: #1BF82A;font-weight: 700;font-size: 2vh;padding-right: 5px">●</span>${e[index][3]}</div>`
         } else {
-          e[index][3] = `<div style="width: 100%;text-align: left;margin-left: 10%"><span style="color: #FF8314;font-weight: 700;font-size: 2vh;padding-right: 5px">●</span>${e[index][3]}</div>`
+          e[index][3] = `<div style="width: 100%;text-align: center"><span style="color: #FF8314;font-weight: 700;font-size: 2vh;padding-right: 5px">●</span>${e[index][3]}</div>`
         }
       })
     },
     change1(e) {
       e.map((item, index) => {
         if (item[3] == '全部发运') {
-          e[index][3] = `<div style="width: 100%;text-align: left;margin-left: 10%""><span style="color: #1BF82A;font-weight: 700;font-size: 2vh;padding-right: 5px">●</span>${e[index][3]}</div>`
+          e[index][3] = `<div style="width: 100%;text-align: center""><span style="color: #1BF82A;font-weight: 700;font-size: 2vh;padding-right: 5px">●</span>${e[index][3]}</div>`
         } else {
-          e[index][3] = `<div style="width: 100%;text-align: left;margin-left: 10%"><span style="color: #FF8314;font-weight: 700;font-size: 2vh;padding-right: 5px">●</span>${e[index][3]}</div>`
+          e[index][3] = `<div style="width: 100%;text-align: center"><span style="color: #FF8314;font-weight: 700;font-size: 2vh;padding-right: 5px">●</span>${e[index][3]}</div>`
         }
       })
     },

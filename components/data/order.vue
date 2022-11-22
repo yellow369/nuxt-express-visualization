@@ -11,8 +11,8 @@
 
       </div>
       <div class="num-total">
-        <span>未完成 &nbsp; <span style="color: #FF8314">{{ complete }}</span></span>
-        <span>已完成 &nbsp; <span style="color: #1BF82A">{{ uncomplete }}</span></span>
+        <span>未完成 &nbsp; <span style="color: #FF8314">{{ uncomplete }}</span></span>
+        <span>已完成 &nbsp; <span style="color: #1BF82A">{{ complete }}</span></span>
       </div>
       <div class="count">
         <div class="line-top"></div>
@@ -73,7 +73,7 @@ export default {
     this.get()
     this.times = setInterval(() => {
       this.get()
-    }, 60000)
+    }, 60000) 
 
     this.$once('hook:beforeDestroy', () => {
       clearInterval(this.times);
@@ -84,12 +84,12 @@ export default {
     //修改表格数据
     change(e) {
       e.map((item, index) => {
-        if (item[7] == '已完成') {
-          this.complete++
-          e[index][7] = `<div style="width: 100%;text-align: left;margin-left: 10%""><span style="color: #1BF82A;font-weight: 700;font-size: 2vh;padding-right: 5px">●</span>${e[index][7]}</div>`
+        if (item[6] == '已完成') {
+          this.complete += e[index][5]
+          e[index][6] = `<div style="width: 100%;text-align: center""><span style="color: #1BF82A;font-weight: 700;font-size: 2vh;padding-right: 5px">●</span>${e[index][6]}</div>`
         } else {
-          this.uncomplete++
-          e[index][7] = `<div style="width: 100%;text-align: left;margin-left: 10%"><span style="color: #FF8314;font-weight: 700;font-size: 2vh;padding-right: 5px">●</span>${e[index][7]}</div>`
+          this.uncomplete += e[index][5]
+          e[index][6] = `<div style="width: 100%;text-align: center"><span style="color: #FF8314;font-weight: 700;font-size: 2vh;padding-right: 5px">●</span>${e[index][6]}</div>`
         }
       })
     },
@@ -121,7 +121,7 @@ export default {
         // header.shift()
         // console.log(formData);
         this.change(formData)
-
+        console.log(formData);
         let sty = []
         data[0].map((item) => sty.push('center'))
 

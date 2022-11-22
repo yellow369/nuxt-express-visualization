@@ -216,9 +216,9 @@ export default {
   }
 
   img {
-    width: px2vw(116px);
-    height: px2vh(83px);
-    margin-top: px2vh(8px);
+    width: px2vw(180px);
+    height: px2vh(70px);
+    margin-top: px2vh(18px);
   }
 }
 

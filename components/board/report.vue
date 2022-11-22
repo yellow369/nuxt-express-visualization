@@ -153,7 +153,7 @@ export default {
         let scroll1 = document.querySelector('.scroll1')
         let scroll2 = document.querySelector('.scroll2')
         function scrollup() {
-          console.log(text.scrollTop);
+          // console.log(text.scrollTop);
           if (text.scrollTop > scroll1.offsetHeight) { //滚动条距离顶部的值恰好等于list1的高度时，达到滚动临界点，此时将让scrollTop=0,让list1回到初始位置，实现无缝滚动
             text.scrollTop = 0;
           } else {

@@ -121,7 +121,7 @@ export default {
       margin: 0 px2vw(0px);
       font-size: px2vw(22px);
       transform: scale(0.9);
-      line-height: px2vh(25px);
+      line-height: px2vh(30px);
     }
   }
 }
