@@ -3,7 +3,7 @@
     <div class="fm">
       <div class="banner">
         <div class="title">
-          <div class="text" style="text-align: left; margin-left: 6%;">FM消防检查 <br /><span>FM Firefighting Inspect</span>
+          <div class="text" style="text-align: left; margin-left: 6%;">FM消防检查 <br /><span>FM Firefighting</span>
           </div>
         </div>
         <img src="../../assets/index/check/logo.png" alt="">
@@ -22,7 +22,7 @@
       <div class="banner">
         <img src="../../assets/index/check/logo1.png" alt="" class="logo1">
         <div class="title">
-          <div class="text">虫鼠害检查 <br /><span>Pest Control Inspect</span></div>
+          <div class="text">虫鼠害检查 <br /><span>Pest Control</span></div>
         </div>
       </div>
       <div class="content-mouse">
@@ -127,7 +127,7 @@ export default {
 
     .title {
       height: px2vh(66px);
-      width: px2vw(300px);
+      width: px2vw(290px);
       font-size: px2vh(45px);
       line-height: px2vh(40px);
       font-weight: 600;
@@ -137,15 +137,12 @@ export default {
       text-align: right;
       padding-right: px2vw(20px);
 
-      span {
-        font-size: px2vw(30px);
-      }
     }
 
     .logo1 {
-      width: px2vw(119px);
-      height: px2vh(51px);
-      margin-top: px2vh(40px);
+      width: px2vw(110px);
+      height: px2vh(100px);
+      margin-left: px2vw(10px);
     }
 
   }
@@ -205,20 +202,14 @@ export default {
     text-align: center;
 
     span {
-      font-size: px2vw(30px);
+      font-size: px2vw(35px);
     }
   }
 
-  .logo1 {
-    width: px2vw(119px);
-    height: px2vh(51px);
-    margin-top: px2vh(18px);
-  }
-
   img {
-    width: px2vw(180px);
-    height: px2vh(70px);
-    margin-top: px2vh(18px);
+    width: px2vw(380px);
+    height: px2vh(100px);
+    margin-top: px2vh(8px);
   }
 }
 

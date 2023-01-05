@@ -3,16 +3,16 @@
     <div class="banner">
       <div class="title">
         <div class="text">原材料预约信息 <br /><span>Raw Materials Booking Data</span> <span>&nbsp;&nbsp;&nbsp;&nbsp; 到货日期：{{
-            day
-        }}</span></div>
+    day
+}}</span></div>
 
       </div>
       <div class="day">
 
       </div>
       <div class="num-total">
-        <span>未完成 &nbsp; <span style="color: #FF8314">{{ uncomplete }}</span></span>
-        <span>已完成 &nbsp; <span style="color: #1BF82A">{{ complete }}</span></span>
+        <span>未到达 &nbsp; <span style="color: #FF8314">{{ uncomplete }}</span></span>
+        <span>已到达 &nbsp; <span style="color: #1BF82A">{{ complete }}</span></span>
       </div>
       <div class="count">
         <div class="line-top"></div>
@@ -28,7 +28,6 @@
           </div>
         </div>
       </div>
-
     </div>
     <!-- <div class="count">
       <dv-digital-flop :config="config1" class="flop" />
@@ -73,7 +72,7 @@ export default {
     this.get()
     this.times = setInterval(() => {
       this.get()
-    }, 60000) 
+    }, 60000)
 
     this.$once('hook:beforeDestroy', () => {
       clearInterval(this.times);
@@ -86,10 +85,10 @@ export default {
       e.map((item, index) => {
         if (item[6] == '已完成') {
           this.complete += e[index][5]
-          e[index][6] = `<div style="width: 100%;text-align: center""><span style="color: #1BF82A;font-weight: 700;font-size: 2vh;padding-right: 5px">●</span>${e[index][6]}</div>`
+          e[index][6] = `<div style="width: 100%;text-align: center""><span style="color: #1BF82A;font-weight: 700;font-size: 2vh;padding-right: 5px">●</span>已到达</div>`
         } else {
           this.uncomplete += e[index][5]
-          e[index][6] = `<div style="width: 100%;text-align: center"><span style="color: #FF8314;font-weight: 700;font-size: 2vh;padding-right: 5px">●</span>${e[index][6]}</div>`
+          e[index][6] = `<div style="width: 100%;text-align: center"><span style="color: #FF8314;font-weight: 700;font-size: 2vh;padding-right: 5px">●</span>未到达</div>`
         }
       })
     },
@@ -122,8 +121,6 @@ export default {
         // console.log(formData);
         this.change(formData)
         console.log(formData);
-        let sty = []
-        data[0].map((item) => sty.push('center'))
 
         let num1 = 0
         let num2 = 0
@@ -135,11 +132,11 @@ export default {
         this.config = {
           header: ['类型', '供应商', '物料号', '物料名称', '托含量', '预约拍数', '状态'],
           data: formData,
-          align: sty,
+          align: ['center', 'left', 'left', 'left', 'center', 'center', 'center'],
           hoverPause: false,
           headerBGC: '#1A3FE02E',
           waitTime: '3000',
-          columnWidth: [colWidth(0.06), colWidth(0.06), colWidth(0.09), colWidth(0.10), colWidth(0.06), colWidth(0.06), colWidth(0.06)],
+          columnWidth: [colWidth(0.06), colWidth(0.07), colWidth(0.09), colWidth(0.09), colWidth(0.06), colWidth(0.06), colWidth(0.06)],
         }
         this.config1 = num1
         this.config2 = num2
@@ -330,7 +327,11 @@ export default {
       background-color: rgba(256, 256, 256, 0) !important;
       font-size: px2vw(28px);
       color: #C7F9FF !important;
+
       // height: px2vh(75px);
+      // .header-item {
+      //   text-align: center;
+      // }
     }
 
     .rows {

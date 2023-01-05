@@ -20,29 +20,25 @@
         <div class="txt txtAll">
           <div class="txt-item txt-title">
             <span>拍位总数</span>
-            <span>{{ numtotal }}</span>
+            <div class="txt-i">{{ numtotal }}</div>
           </div>
           <div class="txt-item">
             <div style="display: inline-block">
-              <div class="dot dot-ori"></div><span>&nbsp;已使用</span>
+              <div class="dot dot-ori"></div><span>&nbsp;已使用（{{ optionData[0].value }}）</span>
             </div>
-            <span>
-              {{ optionData[0].value }}，
-              {{ pertotal }}%</span>
+            <div class="txt-i" :class="colors(pertotal)">{{ pertotal }}%</div>
           </div>
           <div class="txt-item">
             <div style="display: inline-block">
-              <div class="dot dot-gre"></div><span>&nbsp;未使用</span>
+              <div class="dot dot-gre"></div><span>&nbsp;未使用（{{ optionData[1].value }}）</span>
             </div>
-            <span>
-              {{ optionData[1].value }}，
-              {{ (100 - pertotal).toFixed(1) }}%</span>
+            <div class="txt-i" :class="colors((100 - pertotal).toFixed(1))">{{ (100 - pertotal).toFixed(1)
+}}%</div>
           </div>
         </div>
 
       </div>
       <div class="content-item" v-for="(item, index) in sku" :key="index">
-
         <div>
           <div class="charts"></div>
           <div class="item-title">{{ sku[index][0] }}</div>
@@ -50,40 +46,44 @@
         <div class="txt">
           <div class="txt-item txt-title">
             <span>可用拍位</span>
-            <span>{{ total[index][2] }}</span>
+            <div class="txt-i">{{ total[index][2] }}</div>
           </div>
           <div class="txt-item txt-title">
             <span>拍位利用率</span>
-            <span :class="colors(Number(sku[index][3]) + Number(sku[index][1]))">{{ (Number(sku[index][3]) +
-                Number(sku[index][1])).toFixed(1)
-            }}%</span>
+            <div class="txt-i" :class="colors(Number(sku[index][3]) + Number(sku[index][1]))">{{ (Number(sku[index][3])
+    +
+    Number(sku[index][1])).toFixed(1)
+}}%</div>
           </div>
           <div class="txt-item">
             <div style="display: inline-block">
               <div class="dot dot-blue"></div><span>&nbsp;CHO</span>
             </div>
-            <span>
+            <!-- <span>
               {{ sku[index][4] }}
-              <!-- {{ sku[index][3] }}% -->
-            </span>
+               {{ sku[index][3] }}% 
+            </span> -->
+            <div class="txt-i">{{ sku[index][4] }}</div>
           </div>
           <div class="txt-item">
             <div style="display: inline-block">
               <div class="dot dot-pink"></div><span>&nbsp;Kind</span>
             </div>
-            <span>
+            <!-- <span>
               {{ sku[index][2] }}
-              <!-- {{ sku[index][1] }}% -->
-            </span>
+              {{ sku[index][1] }}%
+            </span> -->
+            <div class="txt-i">{{ sku[index][2] }}</div>
           </div>
           <div class="txt-item">
             <div style="display: inline-block">
               <div class="dot dot-gre"></div><span>&nbsp;未使用</span>
             </div>
-            <span>
+            <!-- <span>
               {{ total[index][2] - sku[index][4] - sku[index][2] }}
-              <!-- {{ (100 - sku[index][3] - sku[index][1]).toFixed(1)}}% -->
-            </span>
+              {{ (100 - sku[index][3] - sku[index][1]).toFixed(1)}}%
+            </span> -->
+            <div class="txt-i">{{ total[index][2] - sku[index][4] - sku[index][2] }}</div>
           </div>
         </div>
 
@@ -561,10 +561,10 @@ export default {
 }
 
 .itemAll {
-  width: px2vw(900px) !important;
+  // width: px2vw(900px) !important;
 
   .txtAll {
-    width: px2vw(420px) !important;
+    width: px2vw(400px) !important;
   }
 }
 
@@ -637,7 +637,7 @@ export default {
   justify-content: space-around;
 
   &-item {
-    width: px2vw(840px);
+    width: px2vw(850px);
     height: px2vh(350px);
     display: flex;
     justify-content: space-between;
@@ -652,6 +652,7 @@ export default {
         justify-content: space-between;
         color: rgba(255, 255, 255, 0.7);
         width: 100%;
+        text-align: left;
 
         .dot {
           width: px2vw(26px);
@@ -680,6 +681,11 @@ export default {
       text-align: center;
     }
   }
+}
+
+.txt-i {
+  width: px2vw(80px);
+  text-align: left;
 }
 
 .per-red {

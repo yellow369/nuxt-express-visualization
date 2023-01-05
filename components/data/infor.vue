@@ -106,14 +106,14 @@ export default {
           this.config = {
             header,
             data: this.outData,
-            align: ['center', 'center', 'center', 'center', 'center', 'center', 'center'],
+            align: ['left', 'center', 'center', 'left', 'center', 'center', 'left'],
             hoverPause: false,
             headerBGC: '#1A3FE02E',
             oddRowBGC: '#132235',
             evenRowBGC: '#132235',
             // carousel: 'page',
             waitTime: '3000',
-            columnWidth: [colWidth(0.10), colWidth(0.06), colWidth(0.05), colWidth(0.08), colWidth(0.06), colWidth(0.06), colWidth(0.08)]
+            columnWidth: [colWidth(0.10), colWidth(0.06), colWidth(0.06), colWidth(0.07), colWidth(0.05), colWidth(0.06), colWidth(0.09)]
           }
 
         }).catch((err) => {
@@ -152,14 +152,14 @@ export default {
           this.config1 = {
             header,
             data: this.inData,
-            align: ['center', 'center', 'center', 'center', 'center', 'center', 'center'],
+            align: ['left', 'center', 'center', 'left', 'center', 'center', 'left'],
             hoverPause: false,
             headerBGC: '#1A3FE02E',
             oddRowBGC: '#132235',
             evenRowBGC: '#132235',
             // carousel: 'page',
             waitTime: '3000',
-            columnWidth: [colWidth(0.10), colWidth(0.06), colWidth(0.05), colWidth(0.08), colWidth(0.06), colWidth(0.06), colWidth(0.08)]
+            columnWidth: [colWidth(0.10), colWidth(0.06), colWidth(0.06), colWidth(0.07), colWidth(0.05), colWidth(0.06), colWidth(0.09)]
           }
         }).catch((err) => {
           console.log('请求失败' + err.message);
@@ -171,18 +171,18 @@ export default {
     change(e) {
       e.map((item, index) => {
         if (item[3] == '已关闭/结算') {
-          e[index][3] = `<div style="width: 100%;text-align: center""><span style="color: #1BF82A;font-weight: 700;font-size: 2vh;padding-right: 5px">●</span>${e[index][3]}</div>`
+          e[index][3] = `<div style="width: 100%;text-align: left""><span style="color: #1BF82A;font-weight: 700;font-size: 2vh;padding-right: 5px">●</span>${e[index][3]}</div>`
         } else {
-          e[index][3] = `<div style="width: 100%;text-align: center"><span style="color: #FF8314;font-weight: 700;font-size: 2vh;padding-right: 5px">●</span>${e[index][3]}</div>`
+          e[index][3] = `<div style="width: 100%;text-align: left"><span style="color: #FF8314;font-weight: 700;font-size: 2vh;padding-right: 5px">●</span>${e[index][3]}</div>`
         }
       })
     },
     change1(e) {
       e.map((item, index) => {
         if (item[3] == '全部发运') {
-          e[index][3] = `<div style="width: 100%;text-align: center""><span style="color: #1BF82A;font-weight: 700;font-size: 2vh;padding-right: 5px">●</span>${e[index][3]}</div>`
+          e[index][3] = `<div style="width: 100%;text-align: left""><span style="color: #1BF82A;font-weight: 700;font-size: 2vh;padding-right: 5px">●</span>${e[index][3]}</div>`
         } else {
-          e[index][3] = `<div style="width: 100%;text-align: center"><span style="color: #FF8314;font-weight: 700;font-size: 2vh;padding-right: 5px">●</span>${e[index][3]}</div>`
+          e[index][3] = `<div style="width: 100%;text-align: left"><span style="color: #FF8314;font-weight: 700;font-size: 2vh;padding-right: 5px">●</span>${e[index][3]}</div>`
         }
       })
     },
@@ -307,7 +307,11 @@ export default {
       background-color: rgba(256, 256, 256, 0) !important;
       font-size: px2vw(28px);
       color: #C7F9FF !important;
+
       // height: px2vh(75px);
+      // .header-item {
+      //   text-align: center;
+      // }
     }
 
     .rows {

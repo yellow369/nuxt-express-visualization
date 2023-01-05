@@ -2,15 +2,16 @@
   <div class="three">
     <div class="title">
       <div class="text">消防阀门点位图<br /><span>Fire Valve Map</span></div>
+      <img src="../../assets/点位图例.png" alt="" class="point-img">
     </div>
-    <div><img src="../../assets/仓库3D图.png" alt=""></div>
+    <!-- <div><img src="../../assets/仓库3D图1118_画板 1 副本 (1).png" alt=""></div> -->
     <!-- <el-table style="width: 28%;background-color: rgba(0,0,0,0);" :data="tableData">
       <el-table-column prop="date" label="日期" sortable width="180">
       </el-table-column>
     </el-table> -->
     <div class="table">
       <div class="table-title">消防阀门编号说明 <br /><span>Fire Valve Number Discription</span></div>
-      <div class="col" v-for="(item, index) in tableData">{{ item }}</div>
+      <!-- <div class="col" v-for="(item, index) in tableData">{{ item }}</div> -->
     </div>
   </div>
 </template>
@@ -62,6 +63,9 @@ export default {
   height: px2vh(1300px);
   margin-top: px2vh(80px);
   position: relative;
+  background-image: url(../../assets/3d图.png) ;
+  background-size: px2vw(4200px) px2vh(1400px);
+  background-position: px2vw(-50px) 0;
 
   .title {
     height: px2vh(66px);
@@ -79,6 +83,13 @@ export default {
       span {
         font-size: px2vh(35px);
       }
+    }
+    .point-img {
+      display: block;
+      width: px2vw(220px);
+      height: px2vh(150px);
+      margin-top: px2vh(30px);
+      margin-left: px2vw(0px);
     }
   }
 

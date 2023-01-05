@@ -21,7 +21,7 @@
       <div class="content-item" v-for="(item, index) in sku" :key="index">
         <div class="item-title">
           <div class="title-text">
-            {{ item[0] }}
+            {{ item[0] }} 
           </div>
           <span>可用拍位：{{ total[index][2] }}</span>
           <span>拍位利用率：<a :class="colors(Number(sku[index][3]) + Number(sku[index][1]))">{{ (Number(sku[index][3]) +
@@ -29,7 +29,6 @@
           }}%</a></span>
         </div>
         <div class="charts">
-
         </div>
       </div>
     </div>
